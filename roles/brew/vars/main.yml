@@ -1,0 +1,29 @@
+homebrew_taps:
+  - { name: caskroom/cask }
+  - { name: homebrew/bundle }
+  - { name: homebrew/core }
+  - { name: homebrew/science }
+  - { name: neovim/neovim }
+
+homebrew_packages:
+  - { name: ansible }
+  - { name: ghq }
+  - { name: git }
+  - { name: ghostscript }
+  - { name: go }
+  - { name: fish }
+  - { name: hugo }
+  - { name: libxml2 }
+  - { name: libpng }
+  - { name: libjpeg }
+  - { name: libusb }
+  - { name: openssl }
+  - { name: nmap }
+  - { name: pcre }
+  - { name: peco }
+  - { name: wget }
+
+homebrew_cask_packages:
+  - { name: vagrant }
+  - { name: chromedriver }
+  - { name: xquartz }
