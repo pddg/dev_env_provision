@@ -1,5 +1,6 @@
 - hosts: localhost
   connection: local
   roles:
-    - { role: brew, when: "ansible_os_family == 'Darwin'" }
+    - { role: install_brew, when: 'ansible_os_family == "Darwin"' }
+    - { role: brew, when: 'ansible_os_family == "Darwin"' }
     - { role: dotfiles }
