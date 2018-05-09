@@ -1,0 +1,8 @@
+dotfiles_list:
+  - .bashrc
+  - .bash_profile
+  - .bashrc.osx
+  - .bashrc.common
+  - .bashrc.linux
+  - .profile
+  - .vimrc

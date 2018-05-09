@@ -1,0 +1,14 @@
+- name: git clone dotfiles
+  git:
+    repo: https://github.com/pddg/dotfiles
+    dest: ~/dotfiles
+    update: no
+
+- name: Create symbolic link
+  file:
+    src: ~/dotfiles/{{ item }}
+    dest: ~/{{ item }}
+    state: link
+  with_items:
+    - '{{ dotfiles_list }}'
+

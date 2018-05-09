@@ -2,3 +2,4 @@
   connection: local
   roles:
     - { role: brew, when: "ansible_os_family == 'Darwin'" }
+    - { role: dotfiles }
