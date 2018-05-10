@@ -9,6 +9,7 @@
     src: ~/dotfiles/{{ item }}
     dest: ~/{{ item }}
     state: link
+    force: yes
   with_items:
     - '{{ dotfiles_list }}'
 

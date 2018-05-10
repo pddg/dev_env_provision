@@ -1,0 +1,49 @@
+language: python
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      python: 2.7
+    - os: linux
+      dist: trusty
+      sudo: required
+      python: 3.6
+    - os: osx
+      language: generic
+      osx_image: xcode9.2
+      env:
+        PYTHON_VER=2
+    - os: osx
+      language: generic
+      osx_image: xcode9.3
+      env:
+        PYTHON_VER=2
+    - os: osx
+      language: generic
+      osx_image: xcode9.2
+      env:
+        PYTHON_VER=3
+    - os: osx
+      language: generic
+      osx_image: xcode9.3
+      env:
+        PYTHON_VER=3
+
+cache:
+  ccache: true
+  directories:
+    - $HOME/Library/Caches/Homebrew
+  apt: true
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update ; else sudo apt-get update -y ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" && "$PYTHON_VER" == "3" ]]; then brew upgrade python ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" && "$PYTHON_VER" == "2" ]]; then brew unlink python ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ansible ansible-lint ; else sudo apt-get install -y ansible ; fi
+
+script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ansible-lint exec.yml ; fi
+  - if [[ $(which python3) ]]; then ansible-playbook exec.yml -e ansible_python_interpreter=$(which python3) ; else ansible-playbook exec.yml ; fi
+

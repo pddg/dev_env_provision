@@ -3,7 +3,6 @@ homebrew_taps:
   - { name: caskroom/versions }
   - { name: homebrew/bundle }
   - { name: homebrew/core }
-  - { name: homebrew/science }
   - { name: neovim/neovim }
 
 homebrew_packages:

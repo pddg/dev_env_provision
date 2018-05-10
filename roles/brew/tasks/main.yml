@@ -1,12 +1,12 @@
+- name: brew update
+  homebrew: update_homebrew=yes
+
 - name: homebrewへtapリポジトリを追加
   homebrew_tap:
     name: '{{ item.name }}'
     state: present
   with_items:
     - '{{ homebrew_taps }}'
-
-- name: brew update
-  homebrew: update_homebrew=yes
 
 - name: brewパッケージのインストール
   homebrew:
