@@ -1,5 +1,5 @@
 - name: homebrewへtapリポジトリを追加
-  homebrew_tap: 
+  homebrew_tap:
     name: '{{ item.name }}'
     state: present
   with_items:
@@ -9,20 +9,21 @@
   homebrew: update_homebrew=yes
 
 - name: brewパッケージのインストール
-  homebrew: 
+  homebrew:
     name={{ item.name }}
     state={{ item.state | default('installed') }}
-    install_options={{ 
-      item.install_options | default('latest') | join(',')  
+    install_options={{
+      item.install_options | default('latest') | join(',')
       if item.install_options is not string
       else item.install_options
     }}
-  with_items: 
+  with_items:
     - '{{ homebrew_packages }}'
 
 - name: brew caskパッケージのインストール
   homebrew_cask:
-    name={{ item.name }}
-    state={{ item.state|default('installed') }}
+    name: '{{ item.name }}'
+    state: '{{ item.state|default("installed") }}'
+    accept_external_apps: True
   with_items:
     - '{{ homebrew_cask_packages }}'
