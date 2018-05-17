@@ -1,0 +1,32 @@
+- include_tasks: macos.yml
+  when: ansible_os_family == "Darwin"
+
+- include_tasks: ubuntu.yml
+  when: ansible_os_family == "Debian"
+
+- name: Put config files
+  file:
+    src: '{{ dotfiles_repo }}/{{ item }}'
+    dest: ~/{{ item }}
+    state: link
+    force: yes
+  with_items:
+    - '{{ fish_config_files }}'
+
+- name: Check fisher command exists
+  stat: path=~/.config/fish/functions/fisher.fish
+  register: is_fisher_exists
+
+- name: Install fisherman
+  shell: curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+  when: not is_fisher_exists.stat.exists
+
+- name: Obtain path to fish
+  shell: which fish
+  register: fish_path
+  changed_when: false
+
+- name: Install fish plugins
+  shell: fish_path --command fisher
+  changed_when: false
+  

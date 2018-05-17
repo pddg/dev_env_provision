@@ -1,0 +1,7 @@
+github_user: pddg
+github_email: s.kokuryo@gmail.com
+ghq_root: ~/ghq
+repos_root: '{{ ghq_root }}/github.com/{{ github_user }}'
+dotfiles_repo: '{{ ghq_root }}/dotfiles'
+
+

@@ -4,4 +4,4 @@
 
 - name: Install brew
   shell: /usr/bin/ruby -e "$(curl -fsSL {{ brew_installer_url }})"
-  when: is_brew_exists.stat.md5 is defined
+  when: not is_brew_exists.stat.exists
