@@ -1,7 +1,13 @@
+- name: Obtain path to fish
+  shell: which fish
+  register: fish_path
+  changed_when: false
+  check_mode: no
+
 - name: Set ansible_shell_type to fish
   set_fact:
     ansible_shell_type: fish
-    ansible_shell_executable: /usr/local/bin/fish
+    ansible_shell_executable: '{{ fish_path.stdout }}'
 
 - name: Place anyenv repository
   git:
@@ -21,14 +27,10 @@
   args:
     creates: ~/.ansible/env/pyenv/bin/pyenv
 
-  #- name: Add init script of pyenv to config.fish
-  #lineinfile:
-    #dest: ~/.config/fish/config.fish
-    #    line: '{{ item }}'
 - name: Install python
   shell: pyenv install '{{ item }}'
   args:
-    creates: ~/.anyenv/envs/pyenv/versions/{{ version }}
+    creates: '~/.anyenv/envs/pyenv/versions/{{ item }}'
   with_items:
     - '{{ python_versions }}'
   when: python_versions is defined
