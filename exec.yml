@@ -7,5 +7,6 @@
     - { role: brew, when: 'ansible_os_family == "Darwin"' }
     - { role: dotfiles }
     - { role: fish, when: 'ansible_os_family == "Darwin"' }
-    - { role: anyenv }
+    - { role: anyenv, when: 'ansible_os_family == "Darwin"'}
+    - { role: macos, when: 'ansible_os_family == "Darwin"' }
 
