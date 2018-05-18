@@ -41,4 +41,4 @@
 - name: Install fish plugins
   shell: fisher
   changed_when: false
-  
+

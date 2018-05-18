@@ -10,7 +10,7 @@
     scope: global
     value: '{{ github_email }}'
 
-- name: Set other config 
+- name: Set other config
   blockinfile:
     path: '{{ item.path }}'
     block: |
