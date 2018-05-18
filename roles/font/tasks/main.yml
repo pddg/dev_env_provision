@@ -17,9 +17,10 @@
     ansible_python_interpreter: python3
 
 - name: Unzip archive
-  shell: 'unzip -j -f -d ~/Documents/fonts/ {{ item }}'
-  args:
-    creates: '~/Documents/fonts/{{ item|basename|splitext|first }}'
+  unarchive:
+    src: '{{ item }}'
+    dest: '~/Documents/fonts/{{ item|basename|splitext|first }}'
+    remote_src: yes
   with_fileglob:
     - ~/Documents/fonts/*.zip
 
