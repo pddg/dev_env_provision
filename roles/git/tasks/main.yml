@@ -17,5 +17,6 @@
       '{{ item.content }}'
     marker: ""
     backup: yes
+    create: yes
   with_items:
     - '{{ unsafe_git_configs }}'

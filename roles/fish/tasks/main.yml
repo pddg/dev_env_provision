@@ -4,6 +4,12 @@
 - include_tasks: ubuntu.yml
   when: ansible_os_family == "Debian"
 
+- name: Create fish config dir
+  file:
+    path: ~/.config/fish
+    state: directory
+    create: yes
+
 - name: Put config files
   file:
     src: '{{ dotfiles_repo }}/{{ item }}'
