@@ -3,5 +3,5 @@ quiet: false
 use_default_rules: true
 skip_list:
   - ANSIBLE0004
-  - EANSIBLE0013
+  - ANSIBLE0013
 verbosity: 1
