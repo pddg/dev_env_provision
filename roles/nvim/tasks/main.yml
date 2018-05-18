@@ -1,11 +1,11 @@
 - name: Create neovim config directory
   file:
-    src: ~/.config/nvim
+    path: ~/.config/nvim
     state: directory
 
 - name: Create dein.vim cache directory
   file:
-    src: ~/.cache/dein
+    path: ~/.cache/dein
     state: directory
 
 - name: Link neovim config

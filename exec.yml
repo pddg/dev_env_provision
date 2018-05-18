@@ -3,10 +3,13 @@
   strategy: debug
   debugger: on_failed
   roles:
+    - { role: git }
     - { role: install_brew, when: 'ansible_os_family == "Darwin"' }
     - { role: brew, when: 'ansible_os_family == "Darwin"' }
     - { role: dotfiles }
     - { role: fish, when: 'ansible_os_family == "Darwin"' }
     - { role: anyenv, when: 'ansible_os_family == "Darwin"'}
+    - { role: pyenv, when: 'ansible_os_family == "Darwin"'}
+    - { role: nvim, when: 'ansible_os_family == "Darwin"'}
     - { role: macos, when: 'ansible_os_family == "Darwin"' }
 
