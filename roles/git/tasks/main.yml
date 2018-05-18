@@ -2,7 +2,7 @@
   git_config:
     name: user.name
     scope: global
-    value: '{{ github_user }}'
+    value: '{{ github_user_display }}'
 
 - name: Set git config user.email
   git_config:
@@ -14,8 +14,8 @@
   blockinfile:
     path: '{{ item.path }}'
     block: |
-      '{{ item.content }}'
-    marker: ""
+      {{ item.content }}
+    marker: "; {mark} : Insert by Ansible ( {{ item.name }} )"
     backup: yes
     create: yes
   with_items:

@@ -1,0 +1,5 @@
+font_list:
+  - name: RictyDiminished-with-icons-Regular.ttf
+    url: https://github.com/iij/fontmerger/raw/master/sample/RictyDiminished-with-icons-Regular.ttf
+  - name: fontawesome-free-5.0.13.zip
+    url: https://use.fontawesome.com/releases/v5.0.13/fontawesome-free-5.0.13.zip
