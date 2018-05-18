@@ -6,7 +6,7 @@
     type: bool
     value: false
     state: present
- 
+
 - name: Dock autohide
   osx_defaults:
     domain: com.apple.dock
@@ -48,7 +48,7 @@
     value: YES
     state: present
 
-- name: Show time as '`week` H:mm:ss' 
+- name: Show time as '`week` H:mm:ss'
   osx_defaults:
     domain: com.apple.menuextra.clock
     key: DateFormat
@@ -78,14 +78,14 @@
   osx_defaults:
     domain: com.apple.finder
     key: _FXShowPosixPathInTitle
-		type: bool
-		value: true
+    type: bool
+    value: true
     state: present
 
 - name: Show path bar in finder
   osx_defaults:
     domain: com.apple.finder
     key: ShowPathbar
-		type: bool
-		value: true
+    type: bool
+    value: true
     state: present
