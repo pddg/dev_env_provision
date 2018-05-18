@@ -1,0 +1,22 @@
+- name: Set git config user.name
+  git_config:
+    name: user.name
+    scope: global
+    value: '{{ github_user }}'
+
+- name: Set git config user.email
+  git_config:
+    name: user.email
+    scope: global
+    value: '{{ github_email }}'
+
+- name: Set other config
+  blockinfile:
+    path: '{{ item.path }}'
+    block: |
+      '{{ item.content }}'
+    marker: ""
+    backup: yes
+    create: yes
+  with_items:
+    - '{{ unsafe_git_configs }}'

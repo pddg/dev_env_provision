@@ -1,0 +1,69 @@
+- name: Create neovim config directory
+  file:
+    path: ~/.config/nvim
+    state: directory
+
+- name: Create dein.vim cache directory
+  file:
+    path: ~/.cache/dein
+    state: directory
+
+- name: Link neovim config
+  file:
+    src: '{{ dotfiles_repo }}/{{ item }}'
+    dest: ~/{{ item }}
+    state: link
+    force: yes
+  with_items:
+    - '{{ nvim_config_files }}'
+
+- name: Download install script for dein.vim
+  get_url:
+    url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+    dest: ~/.config/nvim/installer.sh
+  register: download_result
+  until: download_result is succeeded
+  retries: 3
+  delay: 5
+
+- name: Install dein.vim
+  shell: sh ~/.config/nvim/installer.sh ~/.cache/dein
+  args:
+    creates: ~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+- name: Check interpreter version of neovim2
+  shell: ~/.anyenv/envs/pyenv/versions/neovim2/bin/python -V
+  register: nvim2_py_ver
+  changed_when: '"{{ nvim_python2_version }}" not in nvim2_py_ver.stdout'
+  ignore_errors: true
+  notify: uninstall_nvim2_env
+
+- name: Create virtualenv for neovim2 environment
+  shell: 'pyenv virtualenv {{ nvim_python2_version }} neovim2'
+  args:
+    creates: ~/.anyenv/envs/pyenv/versions/neovim2
+
+- name: Install neovim module into neovim2 env
+  pip:
+    name: neovim
+    version: '{{ nvim_module_version }}'
+    virtualenv: ~/.anyenv/envs/pyenv/versions/neovim2
+
+- name: Check interpreter version of neovim3
+  shell: ~/.anyenv/envs/pyenv/versions/neovim3/bin/python -V
+  register: nvim3_py_ver
+  changed_when: '"{{ nvim_python3_version }}" not in nvim3_py_ver.stdout'
+  ignore_errors: true
+  notify: uninstall_nvim3_env
+
+- name: Create virtualenv for neovim3 environment
+  shell: 'pyenv virtualenv {{ nvim_python3_version }} neovim3'
+  args:
+    creates: ~/.anyenv/envs/pyenv/versions/neovim3
+
+- name: Install neovim module into neovim3 env
+  pip:
+    name: neovim
+    version: '{{ nvim_module_version }}'
+    virtualenv: ~/.anyenv/envs/pyenv/versions/neovim3
+

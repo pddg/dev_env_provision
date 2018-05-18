@@ -1,0 +1,6 @@
+python_versions:
+  - { version: 3.6.2, option: --enable-framework }
+  - { version: 2.7.14, option: --disable-framework }
+  - { version: miniconda3-4.3.11, option: --disable-framework }
+
+

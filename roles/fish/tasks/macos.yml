@@ -1,0 +1,17 @@
+- name: Add fish shell to /etc/shells
+  lineinfile:
+    dest: /etc/shells
+    line: /usr/local/bin/fish
+  become: yes
+
+- name: Confirm current shell
+  shell: echo $SHELL
+  register: current_shell
+  changed_when: false
+  check_mode: no
+
+- name: Change default shell to fish
+  shell: chsh -s /usr/local/bin/fish
+  become: yes
+  when: current_shell.stdout != '/usr/local/bin/fish'
+

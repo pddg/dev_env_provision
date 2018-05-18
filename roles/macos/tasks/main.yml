@@ -1,0 +1,91 @@
+# Settings for Dock
+- name: Disable auto sort in working space
+  osx_defaults:
+    domain: com.apple.dock
+    key: mru-spaces
+    type: bool
+    value: false
+    state: present
+
+- name: Dock autohide
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: true
+    state: present
+
+- name: Make animation quickly when Dock hide
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide-delay
+    type: float
+    value: 0
+    state: present
+
+- name: Make animation quickly when expose
+  osx_defaults:
+    domain: com.apple.dock
+    key: expose-animation-duration
+    type: float
+    value: 0.1
+    state: present
+
+- name: Make animation quickly when make apps full window
+  osx_defaults:
+    domain: com.apple.dock
+    key: workspaces-edge-delay
+    type: float
+    value: 0.15
+    state: present
+
+# Settings for status bar
+- name: Show battery remaining as %
+  osx_defaults:
+    domain: com.apple.menuextra.battery
+    key: ShowPercent
+    type: string
+    value: YES
+    state: present
+
+- name: Show time as '`week` H:mm:ss'
+  osx_defaults:
+    domain: com.apple.menuextra.clock
+    key: DateFormat
+    type: string
+    value: "M\\U6708d\\U65e5(EEE)  H:mm:ss"
+    state: present
+
+# Settings for trackpad
+- name: Enable two finger tap
+  osx_defaults:
+    domain: com.apple.AppleMultitouchTrackpad
+    key: TrackpadCornerSecondaryClick
+    type: int
+    value: 2
+    state: present
+
+- name: Enable tap as click
+  osx_defaults:
+    domain: com.apple.AppleMultitouchTrackpad
+    key: Clicking
+    type: int
+    value: 1
+    state: present
+
+# Settings for finder
+- name: Show full path in finder
+  osx_defaults:
+    domain: com.apple.finder
+    key: _FXShowPosixPathInTitle
+    type: bool
+    value: true
+    state: present
+
+- name: Show path bar in finder
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowPathbar
+    type: bool
+    value: true
+    state: present

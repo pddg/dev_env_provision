@@ -51,5 +51,5 @@ before_install:
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ansible-lint exec.yml ; fi
-  - if [[ "$PYTHON_VER" == "3" ]]; then ansible-playbook exec.yml -e ansible_python_interpreter=$(which python3) -C ; else ansible-playbook exec.yml -C ; fi
+  - if [[ "$PYTHON_VER" == "3" ]]; then ansible-playbook exec.yml -e ansible_python_interpreter=$(which python3) --syntax-check ; else ansible-playbook exec.yml --syntax-check ; fi
 

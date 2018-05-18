@@ -1,0 +1,15 @@
+unsafe_git_configs:
+  - path: ~/.gitconfig
+    content: |
+      [ghq]
+          root = $HOME/ghq
+          root = $HOME/go/src
+  - path: ~/.gitconfig
+    content: |
+      [includeIf "gitdir:~ghq/bitbucket.org/"]
+          path = ~/.gitconfig.work
+  - path: ~/.gitconfig.work
+    content: |
+      [user]
+          name = "Shoma Kokuryo"
+          email = s.kokuryo@gmail.com
