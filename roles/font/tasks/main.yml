@@ -1,0 +1,35 @@
+- name: Create font dir
+  file:
+    path: ~/Documents/fonts
+    state: directory
+
+- name: Download font
+  get_url:
+    url: '{{ item.url }}'
+    dest: '~/Documents/fonts/{{ item.name }}'
+  register: download_result
+  until: download_result is succeeded
+  retries: 3
+  delay: 5
+  with_items:
+    - '{{ font_list }}'
+  vars:
+    ansible_python_interpreter: python3
+
+- name: Unzip archive
+  raw: 'unzip -j -f -d ~/Documents/fonts/ {{ item }}'
+  with_fileglob:
+    - ~/Documents/fonts/*.zip
+
+- name: Set skipping task not shown
+  set_fact:
+    stdout_callback: skippy
+
+- name: Install font
+  copy:
+    src: '{{ item.src }}'
+    dest: ~/Library/Fonts
+  when: '".otf" in item.path or ".ttf" in item.path'
+  with_filetree:
+    - ~/Documents/fonts/
+

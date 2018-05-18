@@ -3,6 +3,7 @@
   strategy: debug
   debugger: on_failed
   roles:
+    - { role: font, when: 'ansible_os_family == "Darwin"' }
     - { role: git }
     - { role: install_brew, when: 'ansible_os_family == "Darwin"' }
     - { role: brew, when: 'ansible_os_family == "Darwin"' }

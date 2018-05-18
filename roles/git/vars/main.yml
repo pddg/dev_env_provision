@@ -1,14 +1,17 @@
 unsafe_git_configs:
-  - path: ~/.gitconfig
+  - name: ghq
+    path: ~/.gitconfig
     content: |
       [ghq]
-          root = $HOME/ghq
-          root = $HOME/go/src
-  - path: ~/.gitconfig
+          root = ~/ghq
+          root = ~/go/src
+  - name: include
+    path: ~/.gitconfig
     content: |
       [includeIf "gitdir:~ghq/bitbucket.org/"]
           path = ~/.gitconfig.work
-  - path: ~/.gitconfig.work
+  - name: work
+    path: ~/.gitconfig.work
     content: |
       [user]
           name = "Shoma Kokuryo"
