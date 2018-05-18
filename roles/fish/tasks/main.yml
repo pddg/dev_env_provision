@@ -8,7 +8,6 @@
   file:
     path: ~/.config/fish
     state: directory
-    create: yes
 
 - name: Put config files
   file:
