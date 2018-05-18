@@ -1,0 +1,6 @@
+- name: uninstall_nvim2_env
+  shell: pyenv uninstall -f neovim2
+
+- name: uninstall_nvim3_env
+  shell: pyenv uninstall -f neovim3
+
