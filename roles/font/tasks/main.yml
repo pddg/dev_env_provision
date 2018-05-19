@@ -16,6 +16,13 @@
   vars:
     ansible_python_interpreter: python3
 
+- name: Create dir to unzip
+  file:
+    path: {{ item|basename|splitext|first }}
+	state: directory
+  with_fileglob:
+    ~/.Documents/fonts/*.zip
+
 - name: Unzip archive
   unarchive:
     src: '{{ item }}'
@@ -23,10 +30,6 @@
     remote_src: yes
   with_fileglob:
     - ~/Documents/fonts/*.zip
-
-- name: Set skipping task not shown
-  set_fact:
-    stdout_callback: skippy
 
 - name: Install font
   copy:

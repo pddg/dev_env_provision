@@ -1,7 +1,7 @@
 - name: Install pyenv
   shell: anyenv install pyenv
   args:
-    creates: ~/.ansible/envs/pyenv/bin/pyenv
+    creates: ~/.anyenv/envs/pyenv/bin/pyenv
 
 - name: Install pyenv-virtualenv
   git:

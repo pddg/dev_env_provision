@@ -3,6 +3,6 @@ github_user_display: Pudding
 github_email: s.kokuryo@gmail.com
 ghq_root: '{{ lookup("env","HOME") }}/ghq'
 repos_root: '{{ ghq_root }}/github.com/{{ github_user }}'
-dotfiles_repo: '{{ ghq_root }}/dotfiles'
+dotfiles_repo: '{{ repos_root }}/dotfiles'
 
 

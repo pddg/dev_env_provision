@@ -34,7 +34,8 @@
 - name: Check interpreter version of neovim2
   shell: ~/.anyenv/envs/pyenv/versions/neovim2/bin/python -V
   register: nvim2_py_ver
-  changed_when: '"{{ nvim_python2_version }}" not in nvim2_py_ver.stdout'
+  changed_when: 'nvim2_py_ver.stderr == "" and "nvim_python2_version" not in nvim2_py_ver.stdout'
+  failed_when: False
   ignore_errors: true
   notify: uninstall_nvim2_env
 
@@ -52,7 +53,8 @@
 - name: Check interpreter version of neovim3
   shell: ~/.anyenv/envs/pyenv/versions/neovim3/bin/python -V
   register: nvim3_py_ver
-  changed_when: '"{{ nvim_python3_version }}" not in nvim3_py_ver.stdout'
+  changed_when: 'nvim3_py_ver.stderr == "" and "nvim_python3_version" not in nvim3_py_ver.stdout'
+  failed_when: False
   ignore_errors: true
   notify: uninstall_nvim3_env
 
