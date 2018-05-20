@@ -22,6 +22,7 @@ homebrew_packages:
   - { name: pcre }
   - { name: peco }
   - { name: wget }
+  - { name: boost }
 
 homebrew_cask_packages:
   # browser

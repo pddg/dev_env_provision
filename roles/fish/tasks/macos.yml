@@ -12,6 +12,5 @@
 
 - name: Change default shell to fish
   shell: chsh -s /usr/local/bin/fish
-  become: yes
   when: current_shell.stdout != '/usr/local/bin/fish'
 
