@@ -1,44 +1,49 @@
-- include_tasks: macos.yml
-  when: ansible_os_family == "Darwin"
+- block:
+  - include_tasks: macos.yml
+    when: ansible_os_family == "Darwin"
 
-- include_tasks: ubuntu.yml
-  when: ansible_os_family == "Debian"
+  - include_tasks: ubuntu.yml
+    when: ansible_os_family == "Debian"
 
-- name: Create fish config dir
-  file:
-    path: ~/.config/fish
-    state: directory
+  tags: fish_install
 
-- name: Put config files
-  file:
-    src: '{{ dotfiles_repo }}/{{ item }}'
-    dest: ~/{{ item }}
-    state: link
-    force: yes
-  with_items:
-    - '{{ fish_config_files }}'
+- block:
+  - name: Create fish config dir
+    file:
+      path: ~/.config/fish
+      state: directory
 
-- name: Obtain path to fish
-  shell: which fish
-  register: fish_path
-  changed_when: false
-  check_mode: no
+  - name: Put config files
+    file:
+      src: '{{ dotfiles_repo }}/{{ item }}'
+      dest: ~/{{ item }}
+      state: link
+      force: yes
+    with_items:
+      - '{{ fish_config_files }}'
 
-- name: Set ansible_shell_executable to fish
-  set_fact:
-    ansible_shell_executable: '{{ fish_path.stdout }}'
-    ansible_shell_type: fish
+  - name: Obtain path to fish
+    shell: which fish
+    register: fish_path
+    changed_when: false
+    check_mode: no
 
-- name: Install fisherman
-  get_url:
-    url: https://git.io/fisher
-    dest: ~/.config/fish/functions/fisher.fish
-  register: download_result
-  until: download_result is succeeded
-  retries: 3
-  delay: 5
+  - name: Set ansible_shell_executable to fish
+    set_fact:
+      ansible_shell_executable: '{{ fish_path.stdout }}'
+      ansible_shell_type: fish
 
-- name: Install fish plugins
-  shell: fisher
-  changed_when: false
+  - name: Install fisherman
+    get_url:
+      url: https://git.io/fisher
+      dest: ~/.config/fish/functions/fisher.fish
+    register: download_result
+    until: download_result is succeeded
+    retries: 3
+    delay: 5
 
+  - name: Install fish plugins
+    shell: fisher
+    changed_when: false
+
+  tags: fish_config

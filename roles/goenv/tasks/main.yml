@@ -1,14 +1,20 @@
-- name: Install goenv
-  shell: anyenv install goenv
-  args:
-    creates: ~/.anyenv/envs/goenv/bin/goenv
+- block:
+  - name: Install goenv
+    shell: anyenv install goenv
+    args:
+      creates: ~/.anyenv/envs/goenv/bin/goenv
 
-- name: Install go
-  shell: goenv install '{{ item.version }}'
-  args:
-    creates: '~/.anyenv/envs/goenv/versions/{{ item.version }}'
-  with_items:
-    - '{{ go_versions }}'
-  when: go_versions is defined
-  notify:
-    - goenv_rehash
+  tags: goenv_install
+
+- block:
+  - name: Install go
+    shell: goenv install '{{ item.version }}'
+    args:
+      creates: '~/.anyenv/envs/goenv/versions/{{ item.version }}'
+    with_items:
+      - '{{ go_versions }}'
+    when: go_versions is defined
+    notify:
+      - goenv_rehash
+
+  tags: go_install

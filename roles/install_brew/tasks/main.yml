@@ -1,7 +1,9 @@
-- name: Check brew command exists
-  stat: path=/usr/local/bin/brew
-  register: is_brew_exists
+- block:
+  - name: Check brew command exists
+    stat: path=/usr/local/bin/brew
+    register: is_brew_exists
 
-- name: Install brew
-  shell: /usr/bin/ruby -e "$(curl -fsSL {{ brew_installer_url }})"
-  when: not is_brew_exists.stat.exists
+  - name: Install brew
+    shell: /usr/bin/ruby -e "$(curl -fsSL {{ brew_installer_url }})"
+    when: not is_brew_exists.stat.exists
+  tags: brew_install
