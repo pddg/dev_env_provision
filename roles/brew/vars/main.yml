@@ -57,3 +57,4 @@ homebrew_cask_packages:
   - { name: google-backup-and-sync }
   - { name: xquartz }
   - { name: chromedriver }
+  - { name: skim }

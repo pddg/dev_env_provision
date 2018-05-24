@@ -3,15 +3,15 @@
   strategy: debug
   debugger: on_failed
   roles:
-    - { role: font, when: 'ansible_os_family == "Darwin"' }
-    - { role: git }
-    - { role: install_brew, when: 'ansible_os_family == "Darwin"' }
-    - { role: brew, when: 'ansible_os_family == "Darwin"' }
-    - { role: dotfiles }
-    - { role: fish, when: 'ansible_os_family == "Darwin"' }
-    - { role: anyenv, when: 'ansible_os_family == "Darwin"'}
-    - { role: pyenv, when: 'ansible_os_family == "Darwin"'}
-    - { role: goenv, when: 'ansible_os_family == "Darwin"'}
-    - { role: nvim, when: 'ansible_os_family == "Darwin"'}
-    - { role: macos, when: 'ansible_os_family == "Darwin"' }
+    - { role: font, when: 'ansible_os_family == "Darwin"', tags: font}
+    - { role: git, tags: git }
+    - { role: install_brew, when: 'ansible_os_family == "Darwin"', tags: install_brew }
+    - { role: brew, when: 'ansible_os_family == "Darwin"', tags: brew }
+    - { role: dotfiles, tags: dotfiles }
+    - { role: fish, when: 'ansible_os_family == "Darwin"', tags: fish }
+    - { role: anyenv, when: 'ansible_os_family == "Darwin"', tags: anyenv}
+    - { role: pyenv, when: 'ansible_os_family == "Darwin"', tags: pyenv}
+    - { role: goenv, when: 'ansible_os_family == "Darwin"', tags: goenv}
+    - { role: nvim, when: 'ansible_os_family == "Darwin"', tags: nvim }
+    - { role: macos, when: 'ansible_os_family == "Darwin"', tags: macos }
 

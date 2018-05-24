@@ -6,3 +6,4 @@ dotfiles_list:
   - .bashrc.linux
   - .profile
   - .vimrc
+  - .latexmkrc

@@ -41,15 +41,19 @@
   - name: Check interpreter version of neovim2
     shell: ~/.anyenv/envs/pyenv/versions/neovim2/bin/python -V
     register: nvim2_py_ver
-    changed_when: 'nvim2_py_ver.stderr == "" and "nvim_python2_version" not in nvim2_py_ver.stdout'
+    changed_when: False
     failed_when: False
     ignore_errors: true
-    notify: uninstall_nvim2_env
 
-  - name: Create virtualenv for neovim2 environment
-    shell: 'pyenv virtualenv {{ nvim_python2_version }} neovim2'
-    args:
-      creates: ~/.anyenv/envs/pyenv/versions/neovim2
+  - include_tasks: uninstall.yml
+    when: 'nvim2_py_ver.stdout == "" and nvim_python2_version not in nvim2_py_ver.stderr'
+    vars:
+      python_env_var: 'neovim2'
+
+  - include_tasks: create_env.yml
+    vars:
+      nvim_env_ver: '{{ nvim_python2_version }}'
+      nvim_env_name: 'neovim2'
 
   - name: Install neovim module into neovim2 env
     pip:
@@ -63,15 +67,19 @@
   - name: Check interpreter version of neovim3
     shell: ~/.anyenv/envs/pyenv/versions/neovim3/bin/python -V
     register: nvim3_py_ver
-    changed_when: 'nvim3_py_ver.stderr == "" and "nvim_python3_version" not in nvim3_py_ver.stdout'
+    changed_when: False
     failed_when: False
     ignore_errors: true
-    notify: uninstall_nvim3_env
 
-  - name: Create virtualenv for neovim3 environment
-    shell: 'pyenv virtualenv {{ nvim_python3_version }} neovim3'
-    args:
-      creates: ~/.anyenv/envs/pyenv/versions/neovim3
+  - include_tasks: uninstall.yml
+    when: 'nvim3_py_ver.stderr == "" and nvim_python3_version not in nvim3_py_ver.stdout'
+    vars:
+      python_env_var: 'neovim3'
+  
+  - include_tasks: create_env.yml
+    vars:
+      nvim_env_ver: '{{ nvim_python3_version }}'
+      nvim_env_name: 'neovim3'
 
   - name: Install neovim module into neovim3 env
     pip:

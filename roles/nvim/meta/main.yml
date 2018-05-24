@@ -1,2 +1,2 @@
 dependencies:
-  - { role: pyenv }
+  - { role: pyenv, tags: nvim }
