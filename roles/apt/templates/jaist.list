@@ -1,0 +1,4 @@
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ {{ ubuntu_codename.stdout }} main restricted universe multiverse
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ {{ ubuntu_codename.stdout }}-updates main restricted universe multiverse
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ {{ ubuntu_codename.stdout }}-backports main restricted universe multiverse
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ {{ ubuntu_codename.stdout }}-security main restricted universe multiverse
