@@ -3,55 +3,54 @@
   strategy: debug
   debugger: on_failed
   tasks:
-    - include_role:
+    - import_role:
         name: font
       when: 'ansible_os_family == "Darwin"'
       tags: font
 
-    - include_role:
+    - import_role:
         name: git
       tags: git
 
-    - include_role:
+    - import_role:
         name: apt
       when: 'ansible_os_family == "Debian"'
-      tags: apt
 
-    - include_role:
+    - import_role:
         name: install_brew
       when: 'ansible_os_family == "Darwin"'
       tags: install_brew
 
-    - include_role:
+    - import_role:
         name: brew
       when: 'ansible_os_family == "Darwin"'
       tags: brew
 
-    - include_role:
+    - import_role:
         name: dotfiles
       tags: dotfiles
 
-    - include_role:
+    - import_role:
         name: fish
       tags: fish
 
-    - include_role:
+    - import_role:
         name: anyenv
       tags: anyenv
 
-    - include_role:
+    - import_role:
         name: pyenv
       tags: pyenv
 
-    - include_role:
+    - import_role:
         name: goenv
       tags: goenv
 
-    - include_role:
+    - import_role:
         name: nvim
       tags: nvim
 
-    - include_role:
+    - import_role:
         name: macos
       when: 'ansible_os_family == "Darwin"'
       tags: macos

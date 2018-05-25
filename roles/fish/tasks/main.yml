@@ -20,7 +20,7 @@
   - name: Change default shell to fish
     shell: 'chsh -s {{ fish_path.stdout }}'
     when: current_shell.stdout != fish_path.stdout
-    ignore_error: True
+    ignore_errors: True
     failed_when: False
 
   tags: fish_install
