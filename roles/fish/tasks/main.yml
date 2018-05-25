@@ -1,4 +1,13 @@
 - block:
+  - include_tasks: brew.yml
+    when: ansible_os_family == 'Darwin'
+
+  - include_tasks: apt.yml
+    when: ansible_os_family == 'Debian'
+
+  tags: fish_install
+
+- block:
   - name: Obtain path to fish
     shell: which fish
     register: fish_path
@@ -23,7 +32,7 @@
     ignore_errors: True
     failed_when: False
 
-  tags: fish_install
+  tags: fish_chsh
 
 - block:
   - name: Create fish config dir
