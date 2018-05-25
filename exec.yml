@@ -2,16 +2,57 @@
   connection: local
   strategy: debug
   debugger: on_failed
-  roles:
-    - { role: font, when: 'ansible_os_family == "Darwin"', tags: font}
-    - { role: git, tags: git }
-    - { role: install_brew, when: 'ansible_os_family == "Darwin"', tags: install_brew }
-    - { role: brew, when: 'ansible_os_family == "Darwin"', tags: brew }
-    - { role: dotfiles, tags: dotfiles }
-    - { role: fish, when: 'ansible_os_family == "Darwin"', tags: fish }
-    - { role: anyenv, when: 'ansible_os_family == "Darwin"', tags: anyenv}
-    - { role: pyenv, when: 'ansible_os_family == "Darwin"', tags: pyenv}
-    - { role: goenv, when: 'ansible_os_family == "Darwin"', tags: goenv}
-    - { role: nvim, when: 'ansible_os_family == "Darwin"', tags: nvim }
-    - { role: macos, when: 'ansible_os_family == "Darwin"', tags: macos }
+  tasks:
+    - include_role:
+        name: font
+      when: 'ansible_os_family == "Darwin"'
+      tags: font
+
+    - include_role:
+        name: git
+      tags: git
+
+    - include_role:
+        name: apt
+      when: 'ansible_os_family == "Debian"'
+      tags: apt
+
+    - include_role:
+        name: install_brew
+      when: 'ansible_os_family == "Darwin"'
+      tags: install_brew
+
+    - include_role:
+        name: brew
+      when: 'ansible_os_family == "Darwin"'
+      tags: brew
+
+    - include_role:
+        name: dotfiles
+      tags: dotfiles
+
+    - include_role:
+        name: fish
+      tags: fish
+
+    - include_role:
+        name: anyenv
+      tags: anyenv
+
+    - include_role:
+        name: pyenv
+      tags: pyenv
+
+    - include_role:
+        name: goenv
+      tags: goenv
+
+    - include_role:
+        name: nvim
+      tags: nvim
+
+    - include_role:
+        name: macos
+      when: 'ansible_os_family == "Darwin"'
+      tags: macos
 

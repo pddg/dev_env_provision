@@ -46,9 +46,9 @@
     ignore_errors: true
 
   - include_tasks: uninstall.yml
-    when: 'nvim2_py_ver.stdout == "" and nvim_python2_version not in nvim2_py_ver.stderr'
+    when: 'nvim2_py_ver.stdout == "" and nvim_python2_version not in nvim2_py_ver.stderr and "Unknown" not in nvim2_py_ver.stderr'
     vars:
-      python_env_var: 'neovim2'
+      python_env_ver: 'neovim2'
 
   - include_tasks: create_env.yml
     vars:
@@ -74,8 +74,8 @@
   - include_tasks: uninstall.yml
     when: 'nvim3_py_ver.stderr == "" and nvim_python3_version not in nvim3_py_ver.stdout'
     vars:
-      python_env_var: 'neovim3'
-  
+      python_env_ver: 'neovim3'
+
   - include_tasks: create_env.yml
     vars:
       nvim_env_ver: '{{ nvim_python3_version }}'
