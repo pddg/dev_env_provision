@@ -14,21 +14,21 @@ matrix:
       python: 3.6
       env:
         PYTHON_VER=3
-    - os: osx
-      language: generic
-      osx_image: xcode9.2
-      env:
-        PYTHON_VER=2
+#    - os: osx
+#      language: generic
+#      osx_image: xcode9.2
+#      env:
+#        PYTHON_VER=2
     - os: osx
       language: generic
       osx_image: xcode9.3
       env:
         PYTHON_VER=2
-    - os: osx
-      language: generic
-      osx_image: xcode9.2
-      env:
-        PYTHON_VER=3
+#    - os: osx
+#      language: generic
+#      osx_image: xcode9.2
+#      env:
+#        PYTHON_VER=3
     - os: osx
       language: generic
       osx_image: xcode9.3
