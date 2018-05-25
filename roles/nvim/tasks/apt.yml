@@ -1,0 +1,12 @@
+- name: Add apt repositories
+  apt_repository:
+    repo: pps:neovim-ppa/unstable
+    update_cache: yes
+
+- name: Install neovim by apt
+  apt:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - '{{ ubuntu_nvim_depends }}'
+
