@@ -1,6 +1,6 @@
 - name: Add apt repositories
   apt_repository:
-    repo: pps:neovim-ppa/unstable
+    repo: ppa:neovim-ppa/unstable
     update_cache: yes
 
 - name: Install neovim by apt

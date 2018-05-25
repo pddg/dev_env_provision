@@ -2,56 +2,45 @@
   connection: local
   strategy: debug
   debugger: on_failed
-  tasks:
-    - import_role:
-        name: font
+  roles:
+    - name: font
       when: 'ansible_os_family == "Darwin"'
       tags: font
 
-    - import_role:
-        name: git
+    - name: git
       tags: git
 
-    - import_role:
-        name: apt
+    - name: apt
       when: 'ansible_os_family == "Debian"'
+      tags: apt
 
-    - import_role:
-        name: install_brew
+    - name: install_brew
       when: 'ansible_os_family == "Darwin"'
       tags: install_brew
 
-    - import_role:
-        name: brew
+    - name: brew
       when: 'ansible_os_family == "Darwin"'
       tags: brew
 
-    - import_role:
-        name: dotfiles
+    - name: dotfiles
       tags: dotfiles
 
-    - import_role:
-        name: fish
+    - name: fish
       tags: fish
 
-    - import_role:
-        name: anyenv
+    - name: anyenv
       tags: anyenv
 
-    - import_role:
-        name: pyenv
+    - name: pyenv
       tags: pyenv
 
-    - import_role:
-        name: goenv
+    - name: goenv
       tags: goenv
 
-    - import_role:
-        name: nvim
+    - name: nvim
       tags: nvim
 
-    - import_role:
-        name: macos
+    - name: macos
       when: 'ansible_os_family == "Darwin"'
       tags: macos
 
