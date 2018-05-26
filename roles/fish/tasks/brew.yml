@@ -1,12 +1,7 @@
 - name: Install fish by brew
   homebrew:
-    name={{ item.name }}
-    state={{ item.state | default('installed') }}
-    install_options={{
-      item.install_options | default('latest') | join(',')
-      if item.install_options is not string
-      else item.install_options
-    }}
+    name: '{{ item }}'
+    install_options: latest
   with_items:
     - '{{ fish_dependencies }}'
 
