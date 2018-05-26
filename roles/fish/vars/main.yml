@@ -1,3 +1,7 @@
 fish_config_files:
   - .config/fish/config.fish
   - .config/fish/fishfile
+
+fish_dependencies:
+  - fish
+  - peco

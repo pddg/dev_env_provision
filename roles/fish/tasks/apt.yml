@@ -1,0 +1,10 @@
+- name: Add fish repository
+  apt_repository:
+    repo: ppa:fish-shell/release-2
+    update_cache: yes
+
+- name: Install fish by apt
+  apt:
+    name: '{{ item }}'
+  with_items:
+    - '{{ fish_dependencies }}'

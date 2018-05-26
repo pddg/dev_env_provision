@@ -1,0 +1,11 @@
+- name: Tap repositories
+  homebrew_tap:
+    name: neovim/neovim
+    state: present
+
+- name: Install neovim by brew
+  homebrew:
+    name: '{{ item }}'
+    install_options: latest
+  with_items:
+    - '{{ macos_nvim_depends }}'

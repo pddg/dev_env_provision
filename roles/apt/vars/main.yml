@@ -1,0 +1,20 @@
+apt_packages:
+  - git
+  - python
+  - python3
+  - python-pip
+  - python3-pip
+  - golang
+  - gcc
+  - g++
+  - wget
+  - make
+  - cmake
+  - openssl
+  - libssl-dev
+  - libbz2-dev
+  - libreadline-dev
+  - libsqlite3-dev
+  - zlib1g-dev
+  - libboost-all-dev
+  - libicu-dev

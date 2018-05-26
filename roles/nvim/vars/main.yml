@@ -5,3 +5,12 @@ nvim_config_files:
   - .config/nvim/init.vim
   - .config/nvim/dein.toml
   - .config/nvim/dein_lazy.toml
+ubuntu_nvim_depends:
+  - cmake
+  - libboost-all-dev
+  - libicu-dev
+  - neovim
+macos_nvim_depends:
+  - cmake
+  - boost
+  - neovim

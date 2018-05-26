@@ -1,3 +1,0 @@
-allow_duplicates: false
-dependencies:
-  - { role: brew, when: 'ansible_os_family == "Darwin"' }

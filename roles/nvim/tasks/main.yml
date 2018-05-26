@@ -1,4 +1,13 @@
 - block:
+  - include_tasks: brew.yml
+    when: ansible_os_family == 'Darwin'
+
+  - include_tasks: apt.yml
+    when: ansible_os_family == 'Debian'
+
+  tags: nvim_install
+
+- block:
   - name: Create neovim config directory
     file:
       path: ~/.config/nvim
@@ -46,9 +55,9 @@
     ignore_errors: true
 
   - include_tasks: uninstall.yml
-    when: 'nvim2_py_ver.stdout == "" and nvim_python2_version not in nvim2_py_ver.stderr'
+    when: 'nvim2_py_ver.stdout == "" and nvim_python2_version not in nvim2_py_ver.stderr and "Unknown" not in nvim2_py_ver.stderr'
     vars:
-      python_env_var: 'neovim2'
+      python_env_ver: 'neovim2'
 
   - include_tasks: create_env.yml
     vars:
@@ -57,9 +66,12 @@
 
   - name: Install neovim module into neovim2 env
     pip:
-      name: neovim
-      version: '{{ nvim_module_version }}'
+      name: '{{ item }}'
+      extra_args: --upgrade
       virtualenv: ~/.anyenv/envs/pyenv/versions/neovim2
+    with_items:
+      - pip
+      - neovim
 
   tags: create_nvim2_env
 
@@ -74,8 +86,8 @@
   - include_tasks: uninstall.yml
     when: 'nvim3_py_ver.stderr == "" and nvim_python3_version not in nvim3_py_ver.stdout'
     vars:
-      python_env_var: 'neovim3'
-  
+      python_env_ver: 'neovim3'
+
   - include_tasks: create_env.yml
     vars:
       nvim_env_ver: '{{ nvim_python3_version }}'
@@ -83,8 +95,11 @@
 
   - name: Install neovim module into neovim3 env
     pip:
-      name: neovim
-      version: '{{ nvim_module_version }}'
+      name: '{{ item }}'
+      extra_args: --upgrade
       virtualenv: ~/.anyenv/envs/pyenv/versions/neovim3
+    with_items:
+      - pip
+      - neovim
 
   tags: create_nvim3_env

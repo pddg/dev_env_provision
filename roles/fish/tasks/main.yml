@@ -1,11 +1,32 @@
 - block:
-  - include_tasks: macos.yml
-    when: ansible_os_family == "Darwin"
+  - include_tasks: brew.yml
+    when: ansible_os_family == 'Darwin'
 
-  - include_tasks: ubuntu.yml
-    when: ansible_os_family == "Debian"
+  - include_tasks: apt.yml
+    when: ansible_os_family == 'Debian'
 
   tags: fish_install
+
+- block:
+  - name: Obtain path to fish
+    shell: which fish
+    register: fish_path
+    changed_when: false
+    check_mode: no
+
+  - name: Add fish shell to /etc/shells
+    lineinfile:
+      dest: /etc/shells
+      line: '{{ fish_path.stdout }}'
+    become: yes
+
+  - name: Change default shell to fish
+    shell: 'chsh -s {{ fish_path.stdout }}'
+    when: lookup('env', 'SHELL') != fish_path.stdout
+    ignore_errors: True
+    failed_when: False
+
+  tags: fish_chsh
 
 - block:
   - name: Create fish config dir
@@ -32,6 +53,11 @@
     set_fact:
       ansible_shell_executable: '{{ fish_path.stdout }}'
       ansible_shell_type: fish
+
+  - name: Create functions dir
+    file:
+      path: ~/.config/fish/functions
+      state: directory
 
   - name: Install fisherman
     get_url:
