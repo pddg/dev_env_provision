@@ -92,3 +92,26 @@
       state: present
 
   tags: macos
+
+- block:
+  - name: Remove .localized
+    file:
+      path: '{{ item }}/.localized'
+      state: absent
+    with_items:
+      - ~/Documents
+      - ~/Desktop
+      - ~/Music
+      - ~/Downloads
+      - ~/Movies
+      - ~/Pictures
+      - ~/Library
+      - ~/Public
+      - ~/Applications
+      - /Applications
+      - /Library
+      - /Users
+    become: yes
+
+  tags: localized
+
