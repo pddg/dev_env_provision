@@ -14,21 +14,11 @@ matrix:
       python: 3.6
       env:
         PYTHON_VER=3
-#    - os: osx
-#      language: generic
-#      osx_image: xcode9.2
-#      env:
-#        PYTHON_VER=2
     - os: osx
       language: generic
       osx_image: xcode9.3
       env:
         PYTHON_VER=2
-#    - os: osx
-#      language: generic
-#      osx_image: xcode9.2
-#      env:
-#        PYTHON_VER=3
     - os: osx
       language: generic
       osx_image: xcode9.3
@@ -39,7 +29,6 @@ cache:
   ccache: true
   directories:
     - $HOME/Library/Caches/Homebrew
-    - $HOME/Library/Caches/Homebrew/Cask
   apt: true
 
 before_install:
@@ -47,7 +36,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" && "$PYTHON_VER" == "3" ]]; then brew upgrade python ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" && "$PYTHON_VER" == "2" ]]; then brew unlink python ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ansible ansible-lint ; else sudo apt-get install -y ansible ; fi
-  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get install -y software-properties-common && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update && sudo apt-get install -y ansible ; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get install -y software-properties-common && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update && sudo apt-get install -y ansible python3 python3-pip ; fi
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ansible-lint exec.yml ; fi

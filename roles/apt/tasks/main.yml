@@ -21,6 +21,11 @@
       - iij
       - jaist
 
+  - name: Install python-apt package
+    pip:
+      name: python-apt
+    become: yes
+
   tags: apt_add
 
 - block:
@@ -31,7 +36,7 @@
 
   - name: Apt upgrade
     apt:
-      upgrade: dist
+      upgrade: safe
     become: yes
 
   - name: Install packages
@@ -50,5 +55,6 @@
     apt:
       autoremove: yes
     become: yes
+
   tags: apt_install
 

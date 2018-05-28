@@ -1,6 +1,6 @@
 homebrew_taps:
-  - { name: caskroom/cask }
-  - { name: caskroom/versions }
+  - { name: homebrew/cask }
+  - { name: homebrew/cask-versions }
   - { name: homebrew/bundle }
   - { name: homebrew/core }
   - { name: neovim/neovim }
