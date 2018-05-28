@@ -20,11 +20,12 @@
       line: '{{ fish_path.stdout }}'
     become: yes
 
-  - name: Change default shell to fish
-    shell: 'chsh -s {{ fish_path.stdout }}'
-    when: lookup('env', 'SHELL') != fish_path.stdout
-    ignore_errors: True
-    failed_when: False
+  - name: Setup user shell
+    user:
+      name: '{{ lookup("env", "USER") }}'
+      shell: '{{ fish_path.stdout }}'
+      system: yes
+    become: yes
 
   tags: fish_chsh
 
