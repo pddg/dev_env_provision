@@ -27,13 +27,8 @@
 
   tags: font_download
 
-- block:
-  - name: Install font
-    copy:
-      src: '{{ item.src }}'
-      dest: ~/Library/Fonts
-    when: '".otf" in item.path or ".ttf" in item.path'
-    with_filetree:
-      - ~/Documents/fonts/
+- include_tasks: macos.yml
+  when: ansible_os_family == 'Darwin'
 
-  tags: font_install
+- include_tasks: ubuntu.yml
+  when: ansible_os_family == 'Debian'
