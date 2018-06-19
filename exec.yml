@@ -13,6 +13,10 @@
       when: 'ansible_os_family == "Debian"'
       tags: apt
 
+    - name: nvidia-docker
+      when: 'ansible_os_family == "Debian"'
+      tags: nvidia-docker
+
     - name: install_brew
       when: 'ansible_os_family == "Darwin"'
       tags: install_brew
