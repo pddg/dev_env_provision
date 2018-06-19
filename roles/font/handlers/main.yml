@@ -1,0 +1,3 @@
+- name: fc_cache
+  shell: fc-cache -fv
+  become: yes

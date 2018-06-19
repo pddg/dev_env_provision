@@ -4,7 +4,6 @@
   debugger: on_failed
   roles:
     - name: font
-      when: 'ansible_os_family == "Darwin"'
       tags: font
 
     - name: git
