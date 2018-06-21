@@ -1,0 +1,3 @@
+- name: restart_dockerd
+  shell: pkill -SIGHUP dockerd
+  become: yes
