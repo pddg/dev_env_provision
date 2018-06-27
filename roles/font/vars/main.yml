@@ -3,3 +3,8 @@ font_list:
     url: https://github.com/iij/fontmerger/raw/master/sample/RictyDiminished-with-icons-Regular.ttf
   - name: fontawesome-free-5.0.13.zip
     url: https://use.fontawesome.com/releases/v5.0.13/fontawesome-free-5.0.13.zip
+# UnicodeDecodeError: zipファイル内のマルチバイト文字でエラーが起きる
+#  - name: GenEiKoburiMin-2.2a.zip
+#    url: https://okoneya.jp/font/GenEiKoburiMin-2.2a.zip
+#  - name: GenEiLatin_v2.1.zip
+#    url: https://okoneya.jp/font/GenEiLatin_v2.1.zip
