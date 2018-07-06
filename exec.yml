@@ -43,6 +43,9 @@
     - name: nvim
       tags: nvim
 
+    - name: gcloud
+      tags: gcloud
+
     - name: macos
       when: 'ansible_os_family == "Darwin"'
       tags: macos
