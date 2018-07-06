@@ -1,0 +1,24 @@
+- name: Install gcloud
+  homebrew_cask:
+    name: '{{ item }}'
+    state: installed
+    accept_external_apps: True
+  with_items:
+    - google-cloud-sdk
+
+- name: Kubectl command exists
+  stat:
+    path: '{{ kubectl_executable }}'
+  register: kubectl_path
+
+- name: Install Kubectl command
+  shell: gcloud components install kubectl
+  when: not kubectl_path.stat.exists
+
+- name: Link Kubectl command
+  file:
+    src: '{{ kubectl_command_path }}'
+    dest: '{{ kubectl_executable }}'
+    state: link
+    force: True
+
