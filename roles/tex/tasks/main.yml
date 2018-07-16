@@ -1,0 +1,10 @@
+- block:
+  - name: Install tex
+    apt:
+      name: texlive-full
+      update_cache: yes
+      cache_valid_time: 3600
+    become: yes
+
+  tags: tex_install
+

@@ -18,3 +18,4 @@ apt_packages:
   - zlib1g-dev
   - libboost-all-dev
   - libicu-dev
+  - evince
