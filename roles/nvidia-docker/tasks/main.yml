@@ -1,0 +1,31 @@
+- name: Add GPG key
+  apt_key:
+    url: https://nvidia.github.io/nvidia-docker/gpgkey
+    state: present
+  become: yes
+
+- name: Obtain os information
+  shell: bash -c '. /etc/os-release;echo $ID$VERSION_ID'
+  register: os_version
+  changed_when: false
+  check_mode: no
+
+- name: Get apt source list
+  get_url:
+    url: 'https://nvidia.github.io/nvidia-docker/{{ os_version.stdout }}/nvidia-docker.list'
+    dest: /etc/apt/sources.list.d/nvidia-docker.list
+  become: yes
+
+- name: Apt update
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Install nvidia-docker2
+  apt:
+    name: nvidia-docker2
+  notify:
+    - restart_dockerd
+  become: yes
+
+

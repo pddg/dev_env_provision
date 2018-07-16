@@ -1,0 +1,10 @@
+- block:
+  - name: Install font
+    copy:
+      src: '{{ item.src }}'
+      dest: ~/Library/Fonts
+    when: '".otf" in item.path or ".ttf" in item.path'
+    with_filetree:
+      - ~/Documents/fonts/
+
+  tags: font_install

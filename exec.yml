@@ -4,7 +4,6 @@
   debugger: on_failed
   roles:
     - name: font
-      when: 'ansible_os_family == "Darwin"'
       tags: font
 
     - name: git
@@ -17,6 +16,10 @@
     - name: tex
       when: 'ansible_os_family == "Debian"'
       tags: tex
+
+    - name: nvidia-docker
+      when: 'ansible_os_family == "Debian"'
+      tags: nvidia-docker
 
     - name: install_brew
       when: 'ansible_os_family == "Darwin"'

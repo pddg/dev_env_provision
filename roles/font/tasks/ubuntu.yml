@@ -1,0 +1,18 @@
+- block:
+  - name: Create font dir
+    file:
+      path: /usr/local/share/fonts
+      state: directory
+
+  - name: Install font
+    copy:
+      src: '{{ item.src }}'
+      dest: /usr/local/share/fonts
+    when: '".otf" in item.path or ".ttf" in item.path'
+    with_filetree:
+      - ~/Documents/fonts/
+    become: yes
+    notify:
+      - fc_cache
+
+  tags: font_install
