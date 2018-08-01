@@ -21,6 +21,9 @@
       when: 'ansible_os_family == "Debian"'
       tags: nvidia-docker
 
+    - name: xkeysnail
+      tags: xkeysnail
+
     - name: install_brew
       when: 'ansible_os_family == "Darwin"'
       tags: install_brew
