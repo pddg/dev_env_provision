@@ -35,15 +35,6 @@
       path: ~/.config/fish
       state: directory
 
-  - name: Put config files
-    file:
-      src: '{{ dotfiles_repo }}/{{ item }}'
-      dest: ~/{{ item }}
-      state: link
-      force: yes
-    with_items:
-      - '{{ fish_config_files }}'
-
   - name: Obtain path to fish
     shell: which fish
     register: fish_path
@@ -68,6 +59,15 @@
     until: download_result is succeeded
     retries: 3
     delay: 5
+
+  - name: Put config files
+    file:
+      src: '{{ dotfiles_repo }}/{{ item }}'
+      dest: ~/{{ item }}
+      state: link
+      force: yes
+    with_items:
+      - '{{ fish_config_files }}'
 
   - name: Install fish plugins
     shell: fisher
