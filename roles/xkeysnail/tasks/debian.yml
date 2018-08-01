@@ -1,0 +1,79 @@
+- name: Install pip
+  apt:
+    name: python3-pip
+  become: yes
+
+- name: Install xkeysnail
+  pip:
+    name: xkeysnail
+    executable: /usr/bin/pip3
+  become: yes
+
+- name: Obtain path to xkeysnail
+  shell: which xkeysnail
+  register: xkeysnail_path
+  changed_when: false
+  check_mode: no
+
+- name: Confirm xkeysnail command is executable
+  fail:
+    msg: 'Could not find xkeysnail in path.'
+  when: xkeysnail_path.stdout == ""
+
+- name: Add uinput group
+  group:
+    name: uinput
+  become: yes
+
+- name: Create 'xkeysnail' user to execute xkeysnail
+  user:
+    name: xkeysnail
+    groups:
+      - input
+      - uinput
+    create_home: no
+    shell: /sbin/nologin
+    append: yes
+  become: yes
+
+- name: Create config directory
+  file:
+    path: '{{ xkeysnail_config_dir }}'
+    state: directory
+  become: yes
+
+- name: Place config file
+  copy:
+    dest: '{{ xkeysnail_config_dir }}'
+    src: '{{ xkeysnail_config_file }}'
+    mode: o+r
+  become: yes
+
+- name: Allow 'xkeysnail' user to access /dev/input/*
+  lineinfile:
+    path: '{{ item.path }}'
+    line: '{{ item.line }}'
+    create: yes
+  with_items:
+    - { 'path': '/etc/udev/rules.d/40-udev-xkeysnail.rules', 'line': 'KERNEL=="uinput", GROUP="uinput"' }
+    - { 'path': '/etc/modules-load.d/uinput.conf', 'line': 'uinput' }
+  become: yes
+
+- name: Allow 'xkeysnail' user to execute xkeysnail without password
+  lineinfile:
+    path: /etc/sudoers.d/10-installer
+    line: '{{ lookup("env", "USER") }} ALL=(ALL) ALL,(xkeysnail) NOPASSWD: {{ xkeysnail_path.stdout }}'
+  become: yes
+
+- name: Create start up script
+  template:
+    src: start-xkeysnail.sh
+    dest: '{{ xkeysnail_config_dir }}/start-xkeysnail.sh'
+    mode: a+x
+  become: yes
+
+- name: Register start up script
+  template:
+    src: xkeysnail.desktop
+    dest: ~/.config/autostart/xkeysnail.desktop
+

@@ -1,0 +1,3 @@
+xkeysnail_config_dir: '/etc/opt/xkeysnail'
+xkeysnail_config_file: config.py
+
