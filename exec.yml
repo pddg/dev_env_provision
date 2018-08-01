@@ -13,6 +13,10 @@
       when: 'ansible_os_family == "Debian"'
       tags: apt
 
+    - name: docker
+      when: 'ansible_os_family == "Debian"'
+      tags: docker
+
     - name: tex
       when: 'ansible_os_family == "Debian"'
       tags: tex
