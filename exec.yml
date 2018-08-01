@@ -13,6 +13,10 @@
       when: 'ansible_os_family == "Debian"'
       tags: apt
 
+    - name: docker
+      when: 'ansible_os_family == "Debian"'
+      tags: docker
+
     - name: nvidia-docker
       when: 'ansible_os_family == "Debian"'
       tags: nvidia-docker

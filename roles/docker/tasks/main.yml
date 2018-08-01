@@ -1,0 +1,69 @@
+- name: Uninstall old version docker
+  apt:
+    name: "{{ item }}"
+    state: absent
+  become: yes
+  with_items:
+    - docker
+    - docker.io
+    - docker-engine
+
+- name: Apt update
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+  become: yes
+
+- name: Obtain ubuntu codename
+  shell: lsb_release -cs
+  register: ubuntu_codename
+  check_mode: no
+  failed_when: False
+  changed_when: False
+
+- name: Add GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  become: yes
+
+- name: Apt update
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Add docker apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_codename.stdout }} stable"
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Install docker
+  apt:
+    name: docker-ce
+    state: present
+  become: yes
+
+- name: Install docker-compose
+  apt:
+    name: docker-compose
+    state: present
+  become: yes
+
+- name: Add user to docker group
+  user:
+    name: '{{ ansible_user }}'
+    append: yes
+    groups:
+      - docker
+  become: yes
