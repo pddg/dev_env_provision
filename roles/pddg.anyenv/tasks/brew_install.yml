@@ -1,0 +1,10 @@
+---
+- name: Install anyenv with Homebrew
+  homebrew:
+    name: anyenv
+    state: latest
+
+- name: Create .anyenv dir
+  file:
+    path: "{{ anyenv_install_dir }}"
+    state: "directory"

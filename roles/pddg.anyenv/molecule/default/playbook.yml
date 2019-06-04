@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-anyenv
+  pre_tasks:
+    - name: Install git
+      apt:
+        name:
+          - git

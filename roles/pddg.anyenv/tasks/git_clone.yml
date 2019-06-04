@@ -1,0 +1,6 @@
+---
+- name: Install anyenv with git
+  git:
+    repo: "{{ anyenv_repo }}"
+    dest: "{{ anyenv_install_dir }}"
+    version: "{{ anyenv_version }}"

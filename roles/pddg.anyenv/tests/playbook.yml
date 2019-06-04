@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    anyenv_envs:
+      - goenv
+      - pyenv
+    anyenv_plugins:
+      - repo: https://github.com/znz/anyenv-update
+  roles:
+    - role: ../../.
+  pre_tasks:
+    - name: Install git
+      apt:
+        name:
+          - git

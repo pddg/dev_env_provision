@@ -1,0 +1,22 @@
+---
+anyenv_repo: https://github.com/anyenv/anyenv
+anyenv_version: master
+anyenv_install_dir: "{{ ansible_env.HOME }}/.anyenv"
+
+# Use `brew install` rather than `git clone` if available.
+anyenv_prefer_brew: yes
+
+# Install plugins
+# anyenv_plugins:
+#   - repo: https://github.com/znz/anyenv-update
+#     version: master
+anyenv_plugins: []
+
+# Declare the **env tool names
+# anyenv_envs:
+#   - pyenv
+#   - goenv
+anyenv_envs: []
+
+anyenv_config_home: "{{ ansible_env.XDG_CONFIG_HOME | default(ansible_env.HOME + '/.config') }}"
+anyenv_init_path: "{{ anyenv_config_home }}/anyenv/anyenv-install"

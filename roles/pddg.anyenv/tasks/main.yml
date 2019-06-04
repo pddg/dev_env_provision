@@ -1,0 +1,45 @@
+---
+- include_tasks: "brew_install.yml"
+  when: anyenv_prefer_brew and ansible_os_family == "Darwin"
+
+- include_tasks: "git_clone.yml"
+  when: not anyenv_prefer_brew or ansible_os_family != "Darwin"
+
+- block:
+  - name: Initialize anyenv
+    shell: "anyenv install --force-init"
+    environment:
+      PATH: "{{ anyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
+    args:
+      creates: "{{ anyenv_init_path }}"
+
+  rescue:
+    - name: Ensure anyenv initialized
+      stat:
+        path: "{{ anyenv_init_path }}"
+      register: anyenv_initialized
+
+    - name: Fail if anyenv is not initialized
+      fail:
+        msg: "Anyenv initialization failed"
+      when: not anyenv_initialized.stat.exists
+
+- name: Create plugins dir
+  file:
+    path: "{{ anyenv_install_dir }}/plugins"
+    state: "directory"
+
+- name: Install plugins
+  git:
+    repo: "{{ item.repo }}"
+    version: "{{ item.version | default('master') }}"
+    dest: "{{ anyenv_install_dir }}/plugins/{{ item.repo | urlsplit('path') | basename }}"
+  loop: "{{ anyenv_plugins }}"
+
+- name: Install envs
+  shell: "anyenv install {{ item }}"
+  args:
+    creates: "{{ anyenv_install_dir }}/envs/{{ item }}"
+  environment:
+    PATH: "{{ anyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
+  loop: "{{ anyenv_envs }}"
