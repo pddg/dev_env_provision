@@ -1,5 +1,4 @@
 homebrew_taps:
-  - { name: homebrew/cask }
   - { name: homebrew/cask-versions }
   - { name: homebrew/bundle }
   - { name: homebrew/core }
@@ -26,17 +25,10 @@ homebrew_packages:
 
 homebrew_cask_packages:
   # browser
-  - { name: firefox }
   - { name: google-chrome }
-  - { name: vivaldi-snapshot }
   # development tools
-  - { name: mysqlworkbench }
   - { name: iterm2 }
-  - { name: pycharm }
-  - { name: webstorm }
-  - { name: goland }
-  - { name: clion }
-  - { name: gitkraken }
+  - { name: jetbrains-toolbox }
   - { name: visual-studio-code }
   - { name: typora }
   - { name: vagrant }
@@ -49,12 +41,8 @@ homebrew_cask_packages:
   - { name: licecap }
   - { name: karabiner-elements }
   - { name: alfred }
-  - { name: macpass }
   - { name: moom }
-  - { name: dropbox }
-  - { name: evernote }
   - { name: mendeley }
   - { name: google-backup-and-sync }
-  - { name: xquartz }
   - { name: chromedriver }
   - { name: skim }
