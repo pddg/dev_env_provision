@@ -1,0 +1,5 @@
+---
+- name: Pyenv rehash
+  shell: "pyenv rehash"
+  environment:
+    PATH: "{{ pyenv_install_dir }}/bin:{{ ansible_env.PATH }}"

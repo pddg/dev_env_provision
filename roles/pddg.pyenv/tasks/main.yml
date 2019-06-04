@@ -1,0 +1,28 @@
+---
+- name: Validate versions
+  assert:
+    that:
+      - "item.version in pyenv_install_versions"
+    fail_msg: >
+      "'{{ item.version }}' will not be installed. "
+      "Please add {{ item.version }} to pyenv_install_versions"
+    quiet: yes
+  loop: "{{ pyenv_virtualenvs }}"
+
+- name: Create plugins dir
+  file:
+    path: "{{ pyenv_install_dir }}/plugins"
+    state: "directory"
+
+- name: Install plugins
+  git:
+    repo: "{{ item.repo }}"
+    version: "{{ item.version | default('master') }}"
+    dest: "{{ pyenv_install_dir }}/plugins/{{ item.repo | urlsplit('path') | basename }}"
+  loop: "{{ pyenv_plugins }}"
+
+- include_tasks: "{{ ansible_os_family | lower }}_install_version.yml"
+  loop: "{{ pyenv_install_versions }}"
+
+- include_tasks: "create_env.yml"
+  with_items: "{{ pyenv_virtualenvs }}"

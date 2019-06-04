@@ -1,0 +1,27 @@
+---
+- name: Obtain path to openssl (workaround for High Sierra)
+  shell: brew --prefix openssl
+  register: openssl_prefix
+  changed_when: false
+  check_mode: no
+  run_once: yes
+
+- block:
+  - name: "{{ item }}: Install python interpreters"
+    shell: "pyenv install {{ item }}"
+    args:
+      creates: '{{ pyenv_install_dir }}/versions/{{ item }}'
+    environment:
+      PATH: "{{ pyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
+      PYENV_ROOT: "{{ pyenv_install_dir }}"
+      PYTHON_CONFIGURE_OPTS: '{{ item.option }}'
+      CFLAGS: '-I{{ openssl_prefix.stdout }}/include'
+      LDFLAGS: '-L{{ openssl_prefix.stdout }}/lib'
+    notify:
+      - Pyenv rehash
+
+  rescue:
+    - name: "{{ item }}: Delete failed version directory"
+      file:
+        state: absent
+        path: '{{ pyenv_install_dir }}/versions/{{ item }}'

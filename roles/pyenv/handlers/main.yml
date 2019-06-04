@@ -1,3 +1,0 @@
-- name: pyenv_rehash
-  shell: pyenv rehash
-  changed_when: false

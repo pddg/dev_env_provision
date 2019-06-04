@@ -1,0 +1,22 @@
+---
+# If you do not use anyenv, you may specify `{{ ansible_env.HOME }}/.pyenv`
+pyenv_install_dir: "{{ ansible_env.HOME }}/.anyenv/envs/pyenv"
+
+# Install pyenv plugins list
+pyenv_plugins:
+  - repo: https://github.com/pyenv/pyenv-virtualenv
+    version: master
+
+# Install python version list
+# pyenv_python_versions:
+#   - 3.7.2
+#   - 2.6.8
+pyenv_python_versions: []
+
+# pyenv virtualenv list
+# pyenv_virtualenvs:
+#   - name: env_name
+#     version: 3.7.0
+#     modules:
+#       - some_module
+pyenv_virtualenvs: []

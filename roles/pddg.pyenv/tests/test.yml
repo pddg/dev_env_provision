@@ -1,0 +1,35 @@
+---
+- hosts: all
+  vars:
+    anyenv_envs:
+      - pyenv
+    pyenv_install_versions:
+      - 3.7.2
+      - 3.6.8
+    pyenv_virtualenvs:
+      - name: test
+        version: 3.6.8
+        modules:
+          - requests
+
+  roles:
+    - name: ../../.
+
+  pre_tasks:
+    - name: Install dependencies
+      apt:
+        name:
+          - zlib1g-dev
+          - libssl-dev
+          - libsqlite3-dev
+          - libbz2-dev
+          - libncurses5-dev
+          - libgdbm-dev
+          - liblzma-dev
+          - libssl-dev
+          - tcl-dev
+          - tk-dev
+          - libreadline-dev
+          - libffi-dev
+        cache_valid_time: 3600
+      become: yes

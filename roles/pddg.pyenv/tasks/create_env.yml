@@ -1,0 +1,46 @@
+---
+- set_fact:
+    pyenv_env_dir: "{{ pyenv_install_dir }}/versions/{{ item.name }}"
+
+- name: "{{ item.name }}: Ensure virtualenv is created"
+  shell: "pyenv virtualenv {{ item.version }} {{ item.name }}"
+  args:
+    creates: "{{ pyenv_env_dir }}"
+  environment:
+    PATH: "{{ pyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
+    PYENV_ROOT: "{{ pyenv_install_dir }}"
+
+- name: "{{ item.name }}: Obtain python version in current virtualenv"
+  shell: "{{ pyenv_env_dir }}/bin/python -V 2>&1"
+  check_mode: no
+  changed_when: no
+  register: pyenv_venv_version
+
+- set_fact:
+    pyenv_venv_version: "{{ pyenv_venv_version.stdout | regex_search('[0-9]\\.[0-9]\\.[0-9]') }}"
+
+- name: "{{ item.name }}: Recreate virtualenv"
+  block:
+    - name: "{{ item.name }}: Remove existing virtualenv"
+      shell: "pyenv virtualenv-delete -f {{ item.name }}"
+      environment:
+        PATH: "{{ pyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
+        PYENV_ROOT: "{{ pyenv_install_dir }}"
+
+    - name: "{{ item.name }}: Ensure virtualenv is created"
+      shell: "pyenv virtualenv {{ item.version }} {{ item.name }}"
+      args:
+        creates: "{{ pyenv_env_dir }}"
+      environment:
+        PATH: "{{ pyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
+        PYENV_ROOT: "{{ pyenv_install_dir }}"
+
+  when: pyenv_venv_version is not version(item.version, '==')
+
+- name: "{{ item.name }}: Modules are installed"
+  pip:
+    name: "{{ item.modules }}"
+    executable: "{{ pyenv_env_dir }}/bin/pip"
+  environment:
+    PATH: "{{ pyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
+  when: item.modules | default([]) | length > 0
