@@ -42,10 +42,10 @@
     - name: fish
       tags: fish
 
-    - name: anyenv
+    - name: pddg.anyenv
       tags: anyenv
 
-    - name: pyenv
+    - name: pddg.pyenv
       tags: pyenv
 
     - name: goenv

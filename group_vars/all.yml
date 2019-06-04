@@ -1,3 +1,4 @@
+---
 github_user: pddg
 github_user_display: Pudding
 github_email: s.kokuryo@gmail.com
@@ -5,4 +6,23 @@ ghq_root: '{{ lookup("env","HOME") }}/ghq'
 repos_root: '{{ ghq_root }}/github.com/{{ github_user }}'
 dotfiles_repo: '{{ repos_root }}/dotfiles'
 
+anyenv_plugins:
+  - repo: https://github.com/znz/anyenv-update
+anyenv_envs:
+  - pyenv
+  - goenv
+  - nodenv
+  - rbenv
 
+pyenv_install_versions:
+  - 3.7.3
+  - 2.7.16
+pyenv_virtualenvs:
+  - name: neovim3
+    version: 3.7.3
+    modules:
+      - pynvim
+  - name: neovim2
+    version: 2.7.16
+    modules:
+      - pynvim
