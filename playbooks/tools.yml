@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  connection: local
+  roles:
+    - name: fish
+      tags: fish
+
+    - name: ghq
+      tags: ghq
+
+    - name: pddg.anyenv
+      tags: anyenv
+
+    - name: pddg.pyenv
+      tags: pyenv
+
+    - name: nvim
+      tags: nvim

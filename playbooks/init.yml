@@ -1,0 +1,28 @@
+
+- hosts: localhost
+  connection: local
+  roles:
+    - name: font
+      tags: font
+
+    - name: git
+      tags: git
+
+    - name: apt
+      when: 'ansible_os_family == "Debian"'
+      tags: apt
+
+    - name: install_brew
+      when: 'ansible_os_family == "Darwin"'
+      tags: install_brew
+
+    - name: brew
+      when: 'ansible_os_family == "Darwin"'
+      tags: brew
+
+    - name: dotfiles
+      tags: dotfiles
+
+    - name: macos
+      when: 'ansible_os_family == "Darwin"'
+      tags: macos
