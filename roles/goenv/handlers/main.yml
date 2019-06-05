@@ -1,2 +1,0 @@
-- name: goenv_rehash
-  shell: goenv rehash

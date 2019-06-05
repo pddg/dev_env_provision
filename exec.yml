@@ -26,6 +26,7 @@
       tags: nvidia-docker
 
     - name: xkeysnail
+      when: 'ansible_os_family == "Debian"'
       tags: xkeysnail
 
     - name: install_brew
@@ -47,9 +48,6 @@
 
     - name: pddg.pyenv
       tags: pyenv
-
-    - name: goenv
-      tags: goenv
 
     - name: nvim
       tags: nvim
