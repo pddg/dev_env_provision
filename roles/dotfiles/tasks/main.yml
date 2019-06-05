@@ -3,7 +3,7 @@
     git:
       repo: https://github.com/pddg/dotfiles
       dest: '{{ dotfiles_repo }}'
-      update: no
+      update: yes
 
   - name: Create symbolic link
     file:
