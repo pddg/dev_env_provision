@@ -1,4 +1,0 @@
-- name: Create virtual env
-  shell: pyenv virtualenv '{{ nvim_env_ver }}' '{{ nvim_env_name }}'
-  args:
-    creates: '~/.anyenv/envs/pyenv/versions/{{ nvim_env_name }}'

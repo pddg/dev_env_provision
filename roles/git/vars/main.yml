@@ -8,7 +8,7 @@ unsafe_git_configs:
   - name: include
     path: ~/.gitconfig
     content: |
-      [includeIf "gitdir:~ghq/bitbucket.org/"]
+      [includeIf "gitdir:~/ghq/bitbucket.org/"]
           path = ~/.gitconfig.work
   - name: work
     path: ~/.gitconfig.work

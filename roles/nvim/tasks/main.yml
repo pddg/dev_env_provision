@@ -1,105 +1,38 @@
-- block:
-  - include_tasks: brew.yml
-    when: ansible_os_family == 'Darwin'
+- include_tasks: brew.yml
+  when: ansible_os_family == 'Darwin'
 
-  - include_tasks: apt.yml
-    when: ansible_os_family == 'Debian'
+- include_tasks: apt.yml
+  when: ansible_os_family == 'Debian'
 
-  tags: nvim_install
+- name: Create neovim config directory
+  file:
+    path: "{{ nvim_config_dir }}"
+    state: directory
 
-- block:
-  - name: Create neovim config directory
-    file:
-      path: ~/.config/nvim
-      state: directory
+- name: Create dein.vim cache directory
+  file:
+    path: "{{ nvim_cache_dir }}"
+    state: directory
 
-  - name: Create dein.vim cache directory
-    file:
-      path: ~/.cache/dein
-      state: directory
+- name: Link neovim config
+  file:
+    src: '{{ dotfiles_repo }}/{{ item }}'
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    state: link
+    force: yes
+  with_items:
+    - '{{ nvim_config_files }}'
 
-  - name: Link neovim config
-    file:
-      src: '{{ dotfiles_repo }}/{{ item }}'
-      dest: ~/{{ item }}
-      state: link
-      force: yes
-    with_items:
-      - '{{ nvim_config_files }}'
+- name: Download install script for dein.vim
+  get_url:
+    url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+    dest: "{{ nvim_cache_dir }}/installer.sh"
+  register: download_result
+  until: download_result is succeeded
+  retries: 3
+  delay: 5
 
-  tags: put_nvim_configs
-
-- block:
-  - name: Download install script for dein.vim
-    get_url:
-      url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
-      dest: ~/.config/nvim/installer.sh
-    register: download_result
-    until: download_result is succeeded
-    retries: 3
-    delay: 5
-
-  - name: Install dein.vim
-    shell: sh ~/.config/nvim/installer.sh ~/.cache/dein
-    args:
-      creates: ~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-  tags: dein_install
-
-- block:
-  - name: Check interpreter version of neovim2
-    shell: ~/.anyenv/envs/pyenv/versions/neovim2/bin/python -V
-    register: nvim2_py_ver
-    changed_when: False
-    failed_when: False
-    ignore_errors: true
-
-  - include_tasks: uninstall.yml
-    when: 'nvim2_py_ver.stdout == "" and nvim_python2_version not in nvim2_py_ver.stderr and "Unknown" not in nvim2_py_ver.stderr'
-    vars:
-      python_env_ver: 'neovim2'
-
-  - include_tasks: create_env.yml
-    vars:
-      nvim_env_ver: '{{ nvim_python2_version }}'
-      nvim_env_name: 'neovim2'
-
-  - name: Install neovim module into neovim2 env
-    pip:
-      name: '{{ item }}'
-      extra_args: --upgrade
-      virtualenv: ~/.anyenv/envs/pyenv/versions/neovim2
-    with_items:
-      - pip
-      - neovim
-
-  tags: create_nvim2_env
-
-- block:
-  - name: Check interpreter version of neovim3
-    shell: ~/.anyenv/envs/pyenv/versions/neovim3/bin/python -V
-    register: nvim3_py_ver
-    changed_when: False
-    failed_when: False
-    ignore_errors: true
-
-  - include_tasks: uninstall.yml
-    when: 'nvim3_py_ver.stderr == "" and nvim_python3_version not in nvim3_py_ver.stdout'
-    vars:
-      python_env_ver: 'neovim3'
-
-  - include_tasks: create_env.yml
-    vars:
-      nvim_env_ver: '{{ nvim_python3_version }}'
-      nvim_env_name: 'neovim3'
-
-  - name: Install neovim module into neovim3 env
-    pip:
-      name: '{{ item }}'
-      extra_args: --upgrade
-      virtualenv: ~/.anyenv/envs/pyenv/versions/neovim3
-    with_items:
-      - pip
-      - neovim
-
-  tags: create_nvim3_env
+- name: Install dein.vim
+  shell: "sh {{ nvim_cache_dir }}/installer.sh {{ nvim_cache_dir }}"
+  args:
+    creates: "{{ nvim_cache_dir }}/repos/github.com/Shougo/dein.vim"
