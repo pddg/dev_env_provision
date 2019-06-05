@@ -3,42 +3,15 @@ language: python
 matrix:
   include:
     - os: linux
-      dist: trusty
-      sudo: required
-      python: 2.7
-      env:
-        PYTHON_VER=2
-    - os: linux
-      dist: trusty
-      sudo: required
+      dist: xenial
       python: 3.6
-      env:
-        PYTHON_VER=3
-    - os: osx
-      language: generic
-      osx_image: xcode9.3
-      env:
-        PYTHON_VER=2
-    - os: osx
-      language: generic
-      osx_image: xcode9.3
-      env:
-        PYTHON_VER=3
 
-cache:
-  ccache: true
-  directories:
-    - $HOME/Library/Caches/Homebrew
-  apt: true
+cache: 'pip'
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update ; else sudo apt-get update -y ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" && "$PYTHON_VER" == "3" ]]; then brew upgrade python ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" && "$PYTHON_VER" == "2" ]]; then brew unlink python ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ansible ansible-lint ; else sudo apt-get install -y ansible ; fi
-  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get install -y software-properties-common && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update && sudo apt-get install -y ansible ; fi
+  - pip install ansible ansible-lint
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ansible-lint exec.yml ; fi
-  - if [[ "$PYTHON_VER" == "3" ]]; then ansible-playbook exec.yml -e ansible_python_interpreter=$(which python3) --syntax-check ; else ansible-playbook exec.yml --syntax-check ; fi
+  - ansible-lint playbooks/*
+  - for f in playbooks/* ; do ansible-playbook $f --syntax-check; done
 

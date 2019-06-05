@@ -4,4 +4,6 @@ use_default_rules: true
 skip_list:
   - ANSIBLE0004
   - ANSIBLE0013
+  - 403
+  - 502
 verbosity: 1
