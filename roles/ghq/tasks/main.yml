@@ -1,0 +1,33 @@
+---
+- name: Install dependencies
+  include_tasks: "{{ ansible_os_family | lower }}.yml"
+
+- block:
+  - name: Download binary
+    unarchive:
+      src: 'https://{{ ghq_repository }}/releases/download/{{ ghq_version }}/ghq_{{ ansible_system | lower }}_{{ architecture }}.{{ ghq_archive_ext }}'
+      dest: '/tmp/'
+      remote_src: yes
+
+  - name: Install ghq
+    copy:
+      src: "/tmp/ghq"
+      dest: "{{ ghq_install_path }}"
+      remote_src: yes
+    become: yes
+
+  - name: Ensure that ghq is executable
+    file:
+      path: "{{ ghq_install_path }}/ghq"
+      mode: a+x
+      state: file
+    become: yes
+
+  when: not ghq_prefer_brew or ansible_os_family != 'Darwin'
+
+- block:
+  - name: Install ghq by Homebrew
+    homebrew:
+      name: ghq
+
+  when: ghq_prefer_brew and ansible_os_family == 'Darwin'

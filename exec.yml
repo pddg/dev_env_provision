@@ -43,6 +43,9 @@
     - name: fish
       tags: fish
 
+    - name: ghq
+      tags: ghq
+
     - name: pddg.anyenv
       tags: anyenv
 
