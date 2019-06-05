@@ -5,6 +5,6 @@
       dest: ~/Library/Fonts
     when: '".otf" in item.path or ".ttf" in item.path'
     with_filetree:
-      - ~/Documents/fonts/
+      - "{{ font_dir }}/"
 
   tags: font_install

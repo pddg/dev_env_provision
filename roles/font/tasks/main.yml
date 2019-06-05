@@ -1,7 +1,7 @@
 - block:
   - name: Create font dir
     file:
-      path: ~/Documents/fonts
+      path: "{{ font_dir }}"
       state: directory
 
   - name: Download font
@@ -14,16 +14,14 @@
     delay: 5
     with_items:
       - '{{ font_list }}'
-    vars:
-      ansible_python_interpreter: python3
 
   - name: Unzip archive
     unarchive:
       src: '{{ item }}'
-      dest: '~/Documents/fonts/'
+      dest: '{{ font_dir }}/'
       remote_src: yes
     with_fileglob:
-      - ~/Documents/fonts/*.zip
+      - "{{ font_dir }}/*.zip"
 
   tags: font_download
 

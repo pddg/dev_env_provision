@@ -10,7 +10,7 @@
       dest: /usr/local/share/fonts
     when: '".otf" in item.path or ".ttf" in item.path'
     with_filetree:
-      - ~/Documents/fonts/
+      - "{{ font_dir }}/"
     become: yes
     notify:
       - fc_cache
