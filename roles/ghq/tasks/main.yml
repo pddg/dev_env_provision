@@ -11,7 +11,7 @@
 
   - name: Install ghq
     copy:
-      src: "/tmp/ghq"
+      src: "/tmp/ghq_{{ ansible_system | lower }}_{{ architecture }}/ghq"
       dest: "{{ ghq_install_path }}"
       remote_src: yes
     become: yes
