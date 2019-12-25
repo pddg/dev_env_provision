@@ -50,5 +50,5 @@
 - name: Install fish plugins
   shell: fisher
   args:
-    executable: "{{ fish_path.stdout }} -lc"
+    executable: "{{ fish_path.stdout }}"
   changed_when: false

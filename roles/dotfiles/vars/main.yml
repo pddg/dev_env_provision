@@ -7,3 +7,4 @@ dotfiles_list:
   - .profile
   - .vimrc
   - .latexmkrc
+  - .tmux.conf
