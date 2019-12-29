@@ -1,3 +1,8 @@
+SHELL := /bin/bash
+
+PLAYBOOK_DIR := playbooks
+PLAYBOOK_CMD := pipenv run ansible-playbook
+
 xcode:
 	xcode-select --install
 
@@ -5,12 +10,12 @@ zlib_mojave:
 	sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
 
 brew:
-	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	bash scripts/install_brew.sh
 
 init:
-	ansible-playbook -K playbooks/init.yml $(args)
+	$(PLAYBOOK_CMD) -K $(PLAYBOOK_DIR)/init.yml $(args)
 
 tools:
-	ansible-playbook -K playbooks/tools.yml $(args)
+	$(PLAYBOOK_CMD) -K $(PLAYBOOK_DIR)/tools.yml $(args)
 
 .PHONY: xcode zlib_mojave brew init tools ;
