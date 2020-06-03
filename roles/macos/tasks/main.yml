@@ -49,12 +49,12 @@
       value: YES
       state: present
 
-  - name: Show time as '`week` H:mm:ss'
+  - name: Show time as '`week` H:mm'
     osx_defaults:
       domain: com.apple.menuextra.clock
       key: DateFormat
       type: string
-      value: "M\\u6708d\\u65e5(EEE)  H:mm:ss"
+      value: "M\\u6708d\\u65e5(EEE)  H:mm"
       state: present
 
 # Settings for trackpad

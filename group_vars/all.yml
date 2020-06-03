@@ -7,7 +7,8 @@ repos_root: '{{ ghq_root }}/github.com/{{ github_user }}'
 dotfiles_repo: '{{ repos_root }}/dotfiles'
 
 anyenv_plugins:
-  - repo: https://github.com/znz/anyenv-update
+  - repo: "https://github.com/znz/anyenv-update"
+  - repo: "https://github.com/amashigeseiji/anyenv-lazyload"
 anyenv_envs:
   - pyenv
   - goenv
@@ -15,14 +16,14 @@ anyenv_envs:
   - rbenv
 
 pyenv_install_versions:
-  - 3.7.3
-  - 2.7.16
+  - 3.8.2
+  - 2.7.17
 pyenv_virtualenvs:
   - name: neovim3
-    version: 3.7.3
+    version: 3.8.2
     modules:
       - pynvim
   - name: neovim2
-    version: 2.7.16
+    version: 2.7.17
     modules:
       - pynvim
