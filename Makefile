@@ -12,10 +12,16 @@ zlib_mojave:
 brew:
 	bash scripts/install_brew.sh
 
+ansible:
+	bash scripts/install_ansible.sh
+
+macos: xcode brew ansible
+ubuntu: ansible
+
 init:
 	$(PLAYBOOK_CMD) -K $(PLAYBOOK_DIR)/init.yml $(args)
 
 tools:
 	$(PLAYBOOK_CMD) -K $(PLAYBOOK_DIR)/tools.yml $(args)
 
-.PHONY: xcode zlib_mojave brew init tools ;
+.PHONY: xcode zlib_mojave brew ansible macos ubuntu init tools ;
