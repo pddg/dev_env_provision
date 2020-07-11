@@ -1,5 +1,5 @@
 ---
-ghq_version: v0.12.6
+ghq_version: v0.17.4
 ghq_repository: github.com/motemen/ghq
 ghq_archive_ext: zip
 ghq_install_path: /usr/local/bin
