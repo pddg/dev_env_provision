@@ -1,0 +1,6 @@
+---
+- include_tasks: by_brew.yml
+  when: ansible_os_family == "Darwin" and ghq_install_by_brew
+
+- include_tasks: by_gh_releases.yml
+  when: ansible_os_family != "Darwin" or not ghq_install_by_brew

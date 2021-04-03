@@ -1,0 +1,24 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: el7
+    image: centos:7
+  - name: el8
+    image: centos:8
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../default/playbook.yml
+  lint:
+    name: ansible-lint
+
+verifier:
+  name: testinfra
+  directory: ../default/tests/
+  lint:
+    name: flake8
