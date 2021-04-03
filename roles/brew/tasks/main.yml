@@ -1,35 +1,20 @@
-- block:
-  - name: brew update
-    homebrew:
-      update_homebrew: yes
+- name: brew update
+  homebrew:
+    update_homebrew: yes
 
-  tags: brew_update
+- name: additional fomulas are tapped
+  homebrew_tap:
+    name: '{{ item.name }}'
+    state: present
+  with_items:
+    - '{{ homebrew_taps }}'
 
-- block:
-  - name: homebrewへtapリポジトリを追加
-    homebrew_tap:
-      name: '{{ item.name }}'
-      state: present
-    with_items:
-      - '{{ homebrew_taps }}'
+- name: packages are installed by homebrew
+  homebrew:
+    name: '{{ homebrew_packages }}'
+  with_items:
 
-  - name: brewパッケージのインストール
-    homebrew:
-      name={{ item.name }}
-      state={{ item.state | default('installed') }}
-    with_items:
-      - '{{ homebrew_packages }}'
-
-  tags: brew_packages_install
-
-- block:
-
-  - name: brew caskパッケージのインストール
-    homebrew_cask:
-      name: '{{ item.name }}'
-      state: '{{ item.state|default("installed") }}'
-      accept_external_apps: True
-    with_items:
-      - '{{ homebrew_cask_packages }}'
-
-  tags: cask_packages_install
+- name: desktop apps are installed by homebrew
+  homebrew_cask:
+    name: '{{ homebrew_cask_packages }}'
+    accept_external_apps: True

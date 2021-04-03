@@ -1,48 +1,33 @@
 homebrew_taps:
-  - { name: homebrew/cask-versions }
-  - { name: homebrew/bundle }
-  - { name: homebrew/core }
-  - { name: neovim/neovim }
+  - homebrew/cask-versions
+  - neovim/neovim
 
 homebrew_packages:
-  - { name: ansible }
-  - { name: ghq }
-  - { name: git }
-  - { name: ghostscript }
-  - { name: go }
-  - { name: fish }
-  - { name: hugo }
-  - { name: libxml2 }
-  - { name: libpng }
-  - { name: libjpeg }
-  - { name: libusb }
-  - { name: openssl }
-  - { name: nmap }
-  - { name: pcre }
-  - { name: peco }
-  - { name: wget }
-  - { name: boost }
+  - ansible
+  - ghq
+  - git
+  - nmap
+  - pcre
+  - peco
+  - wget
+  - boost
 
 homebrew_cask_packages:
   # browser
-  - { name: google-chrome }
+  - google-chrome
   # development tools
-  - { name: iterm2 }
-  - { name: jetbrains-toolbox }
-  - { name: visual-studio-code }
-  - { name: typora }
-  - { name: vagrant }
-  - { name: docker }
+  - iterm2
+  - visual-studio-code
+  - typora
+  - vagrant
+  - docker
   # Communication tools
-  - { name: slack }
-  - { name: skype }
+  - slack
   # other utils
-  - { name: appcleaner }
-  - { name: licecap }
-  - { name: karabiner-elements }
-  - { name: alfred }
-  - { name: moom }
-  - { name: mendeley }
-  - { name: google-backup-and-sync }
-  - { name: chromedriver }
-  - { name: skim }
+  - appcleaner
+  - licecap
+  - karabiner-elements
+  - alfred
+  - moom
+  - google-backup-and-sync
+  - skim
