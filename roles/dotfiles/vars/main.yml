@@ -8,3 +8,4 @@ dotfiles_list:
   - .vimrc
   - .latexmkrc
   - .tmux.conf
+  - .zshrc

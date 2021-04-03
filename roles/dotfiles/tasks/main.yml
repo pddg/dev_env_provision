@@ -1,17 +1,13 @@
-- block:
-  - name: git clone dotfiles
-    git:
-      repo: https://github.com/pddg/dotfiles
-      dest: '{{ dotfiles_repo }}'
-      update: yes
+- name: dotfiles repository is pulled
+  git:
+    repo: https://github.com/pddg/dotfiles
+    dest: '{{ dotfiles_repo }}'
+    update: yes
 
-  - name: Create symbolic link
-    file:
-      src: '{{ dotfiles_repo }}/{{ item }}'
-      dest: ~/{{ item }}
-      state: link
-      force: yes
-    with_items:
-      - '{{ dotfiles_list }}'
-
-  tags: dotfiles
+- name: actual dotfiles are linked into dotfiles repository
+  file:
+    src: '{{ dotfiles_repo }}/{{ item }}'
+    dest: ~/{{ item }}
+    state: link
+    force: yes
+  loop: '{{ dotfiles_list }}'
