@@ -4,14 +4,17 @@ updates:
     directory: '/roles/pddg.anyenv'
     schedule:
       interval: 'monthly'
-    ignore: '*'
+    ignore:
+      - dependency-name: '*'
   - package-ecosystem: "pip"
     directory: '/roles/pddg.pyenv'
-    ignore: '*'
+    ignore:
+      - dependency-name: '*'
     schedule:
       interval: 'monthly'
   - package-ecosystem: "pip"
     directory: '/roles/pddg.ghq'
-    ignore: '*'
+    ignore:
+      - dependency-name: '*'
     schedule:
       interval: 'monthly'
