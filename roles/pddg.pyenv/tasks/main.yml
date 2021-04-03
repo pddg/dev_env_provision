@@ -21,6 +21,8 @@
     dest: "{{ pyenv_install_dir }}/plugins/{{ item.repo | urlsplit('path') | basename }}"
   loop: "{{ pyenv_plugins }}"
 
+- include_tasks: "{{ ansible_os_family | lower }}_dependencies.yml"
+
 - include_tasks: "{{ ansible_os_family | lower }}_install_version.yml"
   loop: "{{ pyenv_install_versions }}"
 
