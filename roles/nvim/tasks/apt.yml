@@ -6,7 +6,5 @@
 
 - name: Install neovim by apt
   apt:
-    name: '{{ item }}'
-  with_items:
-    - '{{ ubuntu_nvim_depends }}'
+    name: '{{ ubuntu_nvim_depends }}'
   become: yes

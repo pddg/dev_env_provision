@@ -13,15 +13,20 @@
   file:
     path: "{{ nvim_cache_dir }}"
     state: directory
+  loop: '{{ nvim_config_files }}'
+
+- name: neovim config dir exists
+  file:
+    path: "~/{{ item | dirname }}"
+    state: directory
 
 - name: Link neovim config
   file:
     src: '{{ dotfiles_repo }}/{{ item }}'
-    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    dest: "~/{{ item }}"
     state: link
     force: yes
-  with_items:
-    - '{{ nvim_config_files }}'
+  loop: '{{ nvim_config_files }}'
 
 - name: Download install script for dein.vim
   get_url:

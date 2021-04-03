@@ -1,4 +1,0 @@
-- name: Uninstall env
-  shell: pyenv uninstall '{{ python_env_ver }}'
-  args:
-    removes: '~/.anyenv/envs/pyenv/versions/{{ nvim_env_name }}'
