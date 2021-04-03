@@ -2,10 +2,16 @@ version: 2
 updates:
   - package-ecosystem: "pip"
     directory: '/roles/pddg.anyenv'
+    schedule:
+      interval: 'monthly'
     ignore: '*'
   - package-ecosystem: "pip"
     directory: '/roles/pddg.pyenv'
     ignore: '*'
+    schedule:
+      interval: 'monthly'
   - package-ecosystem: "pip"
     directory: '/roles/pddg.ghq'
     ignore: '*'
+    schedule:
+      interval: 'monthly'
