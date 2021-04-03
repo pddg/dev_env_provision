@@ -1,9 +1,0 @@
----
-fish_config_dir: "{{ ansible_env.XDG_CONFIG_HOME | default(ansible_env.HOME + '/.config') }}/fish"
-fish_config_files:
-  - .config/fish/config.fish
-  - .config/fish/fishfile
-  - .config/fish/functions/bobthefish_colors.fish
-
-fish_dependencies:
-  - fish

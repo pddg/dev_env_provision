@@ -2,9 +2,6 @@
 - hosts: local
   connection: local
   roles:
-    - name: fish
-      tags: fish
-
     - name: pddg.ghq
       tags: ghq
       vars:

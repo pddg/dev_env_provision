@@ -1,7 +1,0 @@
-- name: Install fish by brew
-  homebrew:
-    name: '{{ item }}'
-    install_options: latest
-  with_items:
-    - '{{ fish_dependencies }}'
-
