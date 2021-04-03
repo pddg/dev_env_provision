@@ -1,7 +1,5 @@
 ---
 github_user: pddg
-github_user_display: Pudding
-github_email: s.kokuryo@gmail.com
 ghq_root: '{{ lookup("env","HOME") }}/ghq'
 repos_root: '{{ ghq_root }}/github.com/{{ github_user }}'
 dotfiles_repo: '{{ repos_root }}/dotfiles'
@@ -11,9 +9,7 @@ anyenv_plugins:
   - repo: "https://github.com/amashigeseiji/anyenv-lazyload"
 anyenv_envs:
   - pyenv
-  - goenv
   - nodenv
-  - rbenv
 
 pyenv_install_versions:
   - 3.8.2

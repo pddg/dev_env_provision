@@ -1,4 +1,4 @@
-
+---
 - hosts: local
   connection: local
   roles:
@@ -12,10 +12,6 @@
       when: 'ansible_os_family == "Debian"'
       tags: apt
 
-    - name: install_brew
-      when: 'ansible_os_family == "Darwin"'
-      tags: install_brew
-
     - name: brew
       when: 'ansible_os_family == "Darwin"'
       tags: brew
@@ -26,3 +22,17 @@
     - name: macos
       when: 'ansible_os_family == "Darwin"'
       tags: macos
+
+    - name: pddg.ghq
+      tags: ghq
+      vars:
+        ghq_version: 1.1.7
+
+    - name: pddg.anyenv
+      tags: anyenv
+
+    - name: pddg.pyenv
+      tags: pyenv
+
+    - name: nvim
+      tags: nvim
