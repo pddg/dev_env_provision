@@ -1,18 +1,10 @@
+git_user: "Shoma Kokuryo"
+git_email: "s.kokuryo@gmail.com"
+
 unsafe_git_configs:
   - name: ghq
     path: ~/.gitconfig
     content: |
       [ghq]
-          root = ~/ghq
           root = ~/go/src
-  - name: include
-    path: ~/.gitconfig
-    content: |
-      [includeIf "gitdir:~/ghq/bitbucket.org/"]
-          path = ~/.gitconfig.work
-  - name: work
-    path: ~/.gitconfig.work
-    content: |
-      [user]
-          name = "Shoma Kokuryo"
-          email = s.kokuryo@gmail.com
+          root = ~/ghq
