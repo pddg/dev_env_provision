@@ -2,8 +2,12 @@ parseable: true
 quiet: false
 use_default_rules: true
 skip_list:
-  - ANSIBLE0004
-  - ANSIBLE0013
-  - 403
-  - 502
+  - truthy
+  - risky-file-permissions
 verbosity: 1
+exclude_paths:
+  - ./.github/
+  - ./roles/pddg.anyenv/
+  - ./roles/pddg.ghq/
+  - ./roles/pddg.pyenv/
+  - ./hosts.yml

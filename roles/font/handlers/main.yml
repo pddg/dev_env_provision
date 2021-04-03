@@ -1,3 +1,3 @@
-- name: fc_cache
+- name: fc_cache  # noqa command-instead-of-shell
   shell: fc-cache -fv
   become: yes

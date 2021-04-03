@@ -39,6 +39,6 @@
   delay: 5
 
 - name: Install dein.vim
-  shell: "sh {{ nvim_cache_dir }}/installer.sh {{ nvim_cache_dir }}"
+  command: "bash -lc 'sh {{ nvim_cache_dir }}/installer.sh {{ nvim_cache_dir }}'"
   args:
     creates: "{{ nvim_cache_dir }}/repos/github.com/Shougo/dein.vim"

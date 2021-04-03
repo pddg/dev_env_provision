@@ -2,7 +2,7 @@
   git:
     repo: https://github.com/pddg/dotfiles
     dest: '{{ dotfiles_repo }}'
-    update: yes
+    update: yes  # noqa git-latest
 
 - name: parent directories are created
   file:

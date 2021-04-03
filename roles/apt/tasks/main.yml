@@ -1,49 +1,46 @@
-- block:
-  - name: Obtain ubuntu code name
-    shell: lsb_release -cs
-    register: ubuntu_codename
-    changed_when: False
+- name: Obtain ubuntu code name
+  command: /usr/bin/lsb_release -cs
+  register: ubuntu_codename
+  changed_when: False
 
-  - name: Create apt list dir
-    file:
-      path: /etc/apt/sources.list.d
-      state: directory
-      owner: root
-    become: yes
+- name: Create apt list dir
+  file:
+    path: /etc/apt/sources.list.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
 
-  - name: Add IIJ and JAIST server to apt list
-    template:
-      src: 'templates/{{ item }}.list'
-      dest: '/etc/apt/sources.list.d/{{ item }}.list'
-      owner: root
-    become: yes
-    with_items:
-      - iij
-      - jaist
+- name: Add IIJ and JAIST server to apt list
+  template:
+    src: 'templates/{{ item }}.list'
+    dest: '/etc/apt/sources.list.d/{{ item }}.list'
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  with_items:
+    - iij
+    - jaist
 
-  - name: Install python-apt package
-    pip:
-      name: python-apt
-    become: yes
+- name: Install python-apt package
+  pip:
+    name: python-apt
+  become: yes
 
-  tags: apt_add
+- name: Install packages
+  apt:
+    name: '{{ apt_packages }}'
+    cache_valid_time: 3600
+  become: yes
 
-- block:
+- name: Apt clean
+  apt:
+    autoclean: yes
+  become: yes
 
-  - name: Install packages
-    apt:
-      name: '{{ apt_packages }}'
-      cache_valid_time: 3600
-    become: yes
-
-  - name: Apt clean
-    apt:
-      autoclean: yes
-    become: yes
-
-  - name: Remove unnecessary packages
-    apt:
-      autoremove: yes
-    become: yes
-
-  tags: apt_install
+- name: Remove unnecessary packages
+  apt:
+    autoremove: yes
+  become: yes
