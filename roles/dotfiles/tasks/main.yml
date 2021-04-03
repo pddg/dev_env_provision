@@ -4,6 +4,12 @@
     dest: '{{ dotfiles_repo }}'
     update: yes
 
+- name: parent directories are created
+  file:
+    path: "~/{{ item | dirname }}"
+    state: directory
+  loop: '{{ dotfiles_list }}'
+
 - name: actual dotfiles are linked into dotfiles repository
   file:
     src: '{{ dotfiles_repo }}/{{ item }}'

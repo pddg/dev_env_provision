@@ -9,3 +9,5 @@ dotfiles_list:
   - .latexmkrc
   - .tmux.conf
   - .zshrc
+  - .config/starship.toml
+  - .tmux/scripts/tmux-pane-border
