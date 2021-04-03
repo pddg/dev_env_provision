@@ -6,13 +6,11 @@
   homebrew_tap:
     name: '{{ item.name }}'
     state: present
-  with_items:
-    - '{{ homebrew_taps }}'
+  loop: '{{ homebrew_taps }}'
 
 - name: packages are installed by homebrew
   homebrew:
     name: '{{ homebrew_packages }}'
-  with_items:
 
 - name: desktop apps are installed by homebrew
   homebrew_cask:

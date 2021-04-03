@@ -25,6 +25,7 @@
 
     - name: pddg.ghq
       tags: ghq
+      become: yes
       vars:
         ghq_version: 1.1.7
 

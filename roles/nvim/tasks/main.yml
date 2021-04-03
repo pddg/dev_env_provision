@@ -19,6 +19,7 @@
   file:
     path: "~/{{ item | dirname }}"
     state: directory
+  loop: '{{ nvim_config_files }}'
 
 - name: Link neovim config
   file:
