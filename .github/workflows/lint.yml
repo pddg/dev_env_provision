@@ -20,8 +20,8 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - runs: |
+      - run: |
           pip install ansible ansible-lint
-      - runs: |
+      - run: |
           ansible-lint ./**/*.yml
           ansible-playbook playbooks/setup.yml --syntax-check
