@@ -1,7 +1,7 @@
 ---
 # Refs: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 - name: Install dependencies (darwin)
-  brew:
+  homebrew:
     name:
       - openssl
       - readline

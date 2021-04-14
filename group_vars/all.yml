@@ -12,11 +12,11 @@ anyenv_envs:
   - nodenv
 
 pyenv_install_versions:
-  - 3.8.2
+  - 3.8.4
   - 2.7.17
 pyenv_virtualenvs:
   - name: neovim3
-    version: 3.8.2
+    version: 3.8.4
     modules:
       - pynvim
   - name: neovim2

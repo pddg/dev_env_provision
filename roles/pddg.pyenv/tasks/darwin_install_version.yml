@@ -6,6 +6,12 @@
   check_mode: no
   run_once: yes
 
+- name: Obtain path to sdk
+  shell: xcrun --show-sdk-path
+  register: xcrun_sdk_path
+  changed_when: false
+  check_mode: no
+
 - block:
   - name: "{{ item }}: Install python interpreters"
     shell: "pyenv install {{ item }}"
@@ -14,9 +20,8 @@
     environment:
       PATH: "{{ pyenv_install_dir }}/bin:{{ ansible_env.PATH }}"
       PYENV_ROOT: "{{ pyenv_install_dir }}"
-      PYTHON_CONFIGURE_OPTS: '{{ item.option }}'
       CFLAGS: '-I{{ openssl_prefix.stdout }}/include'
-      LDFLAGS: '-L{{ openssl_prefix.stdout }}/lib'
+      LDFLAGS: '-L{{ openssl_prefix.stdout }}/lib -L{{ xcrun_sdk_path.stdout }}/usr/lib'
     notify:
       - Pyenv rehash
 

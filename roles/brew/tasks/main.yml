@@ -4,7 +4,7 @@
 
 - name: additional fomulas are tapped
   homebrew_tap:
-    name: '{{ item.name }}'
+    name: '{{ item }}'
     state: present
   loop: '{{ homebrew_taps }}'
 
