@@ -11,7 +11,7 @@ set -e
 
 
 case "$(uname)" in
-    'darwin')
+    'Darwin')
         xcode-select --install > /dev/null 2>&1 || true
         # Install Homebrew if needed
         brew_installer_url=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
